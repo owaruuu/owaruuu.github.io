@@ -5,9 +5,14 @@
 .container {
     display: flex;
     justify-content: center;
+    gap: 5px;
 }
 
 .card {
     width: 200px;
     height: 400px;
+}
+
+.correct {
+    background-color: rgb(127, 255, 159);
 }

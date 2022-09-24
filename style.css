@@ -1,18 +1,55 @@
-* {
+/* * {
     border: black solid;
-}
+} */
 
 .container {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
+    padding: 20px;
 }
 
 .card {
-    width: 200px;
-    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow:hidden;
+    width: 150px;
+    height: 200px; 
+    border-radius: 10px;
+    filter: drop-shadow(2px 5px 0px #1b021a38);
+}
+
+.selected {
+    border: black solid 1px;
+}
+
+.question {
+    font-size: 23vh;
+    text-align: center;
+    background-color: lightblue;
+    border-bottom: gray dotted;
+    flex : 1;
+}
+
+.form {
+    text-align: center;
+    background-color: gainsboro;
+    flex: 1;
 }
 
 .correct {
-    background-color: rgb(127, 255, 159);
+    background-color: rgb(171, 223, 156);
+}
+
+.incorrect {
+    background-color: brown;
+}
+
+input[type=text] {
+    background-color: rgb(255, 255, 255);
+    border: 0ch;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
 }

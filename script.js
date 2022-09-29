@@ -347,6 +347,9 @@ function BuildPracticePage(selected){
         practiceDiv.appendChild(element);
     });
 
+    let firstInput = document.querySelector('input');
+    firstInput.focus();
+
     //console.log(kanasBase);
     //console.log(kanas);
 }

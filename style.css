@@ -169,7 +169,7 @@ button:active:enabled .uibtn-top {
 }
 
 .question {
-    font-size: 7vw;
+    font-size: 8rem;
     text-align: center;
     background-color: lightblue;
     border-bottom: gray dotted;

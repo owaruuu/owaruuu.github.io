@@ -17,7 +17,7 @@ body{
     align-items: center;
     flex: 1;
     /* overflow-y: auto; */
-    max-width: 80rem;
+    /* max-width: 60rem; */
     margin: 0 auto 2rem;
 }
 
@@ -59,8 +59,12 @@ p#instrucciones{
 
 p#instruccionescontent{
     text-align: center;
-    width: 200px;
+    max-width: 400px;
     margin-top: 0;
+    font-size: 1.2rem;
+    color: #595758;
+    margin-left: auto;
+margin-right: auto;
 }
 
 #app{
@@ -72,7 +76,7 @@ p#instruccionescontent{
 .homediv{
     display: flex;
     flex-direction: column;
-    width: 200px;
+    /* width: 200px; */
     align-items: center;
 }
 
@@ -85,27 +89,17 @@ p#instruccionescontent{
     border: none;
     border-radius: var(--button_radius);
     background: var(--button_outline_color);
-
-    /* width: 200px;
-    padding: 20px;
-    margin: 10px;
-    background-color: #F7C7DB;
-    color: #595758;
-    border: 2px solid #595758;
-    border-radius: 8px;
-    font-size: 16px;
+    width: 200px;
+    margin: 10px;  
     text-transform: uppercase;
     cursor: pointer;
-    height: 48px;
     justify-content: center;
     line-height: 24px;
     max-width: 100%;
-    padding: 0 25px;
-    position: relative;
     text-align: center;
     text-decoration: none;
     -webkit-user-select: none;
-    user-select: none;  */
+    user-select: none; 
 }
 
 .uibtn-top{
@@ -120,11 +114,11 @@ p#instruccionescontent{
     transition: transform 0.1s ease;
 }
 
-button:hover .uibtn-top{
+button:hover:enabled .uibtn-top{
     transform: translateY(-0.33em);
 }
 
-button:active .uibtn-top {
+button:active:enabled .uibtn-top {
     /* Push the button downwards when pressed */
    transform: translateY(0);
 }
@@ -146,6 +140,11 @@ button:active .uibtn-top {
 
 .uibtn:active{
     top: -2px;
+}
+
+.uibtn-top.disabled{
+    color: #4f4f4f;
+    background-color: #95738e;
 }
 
 .container {
@@ -198,8 +197,7 @@ input[type=text] {
     border-radius: 5px;
     font-size: 20px;
     margin-top: 20px;
-    text-align: center;
-    
+    text-align: center;   
 }
 
 #footer{
@@ -207,16 +205,28 @@ input[type=text] {
     bottom: 0;
 }
 
-.practiceDiv{
+.setupDiv{
     flex: 1;
 }
 
+.practiceDiv{
+    border: black 2px solid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 31px;
+}
+
 .select-box{
+    --margin : 19px;
     display: block;
-    border: .3vw solid #C86FC9;
-    color: #8E518D;
+    border: .3vw solid #595758;
+    color: #595758;
     padding: 0.5rem 0;
-    border-radius: 5px;
+    border-radius: 9px;
+    font-size: 1.5rem;
+    transition: 0.2s ease;
+    margin: var(--margin) 0px var(--margin) 0;
 }
 
 label{
@@ -225,12 +235,14 @@ label{
     user-select: none; 
 }
 
-input {
+.setup-input {
     clip-path: inset(50%);
     position: absolute;
 }
 
 .check {
     background-color: #C86FC9;
+    border: .3vw solid #C86FC9;
     color: #fff;
+    border-radius: 0%;
 }

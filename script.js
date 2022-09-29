@@ -84,6 +84,7 @@ function Submit(event){
     let form = event.target;
     let input = event.target[0];
     let inputValue = event.target[0].value;
+    inputValue = inputValue.toLowerCase();
     let answer = cardDiv.dataset.answer;
     
     if(inputValue == answer )
@@ -379,6 +380,7 @@ function BuildKanaCard(kana){
     input.autocomplete = 'off';
     input.size = 4;
     input.maxLength = 5;
+    input.autocapitalize = 'off';
 
     return cardDiv;
 }

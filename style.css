@@ -29,23 +29,29 @@ body{
 }
 
 .logo{
-    max-width: 100px;
+    max-width: 10vw;
 }
+
+
 
 img{
     height: 100%;
     object-fit: contain;
+    max-width: 100%;
 }
 
 h1{
     align-items: center;
     display: inline-flex;
-    height: 48px;
+    /* height: 48px; */
     justify-content: center;
-    letter-spacing: -.8px;
-    line-height: 24px;
-    min-width: 140px;
+    /* letter-spacing: -.8px; */
+    /* line-height: 24px; */
+    /* min-width: 140px; */
     color: #fdfbf9;
+    font-size: clamp(1rem, 1rem + 2vw ,7rem);
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .otherbtn{
@@ -210,7 +216,7 @@ input[type=text] {
 }
 
 .practiceDiv{
-    border: black 2px solid;
+    /* border: black 2px solid; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

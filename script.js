@@ -2,7 +2,7 @@ let instrucciones = {
     home : 'Selecciona la opcion que quieres. Puedes aprender las letras de Hiragana/Katakana desde 0 o practicarlas si ya las sabes.', 
     aprender : 'Selecciona cuales kana quieres aprender.',
     practicar : 'Selecciona cuales kana quieres practicar.',
-    kanatable : 'escribe en cada tarjeta la lectura en romaji del kana.'
+    kanatable : 'Escribe en cada tarjeta la lectura en romaji del kana.'
 }
 
 const kanaSets = {
@@ -142,7 +142,7 @@ function BuildPracticeSetupPage(){
     app.appendChild(setupDiv);
 
     //crear boton All
-    CreateLabelInput(setupDiv, 'all-main', 'Todos los Kana');
+    // CreateLabelInput(setupDiv, 'all-main', 'Todos los Kana');
 
     //crear boton A
     CreateLabelInput(setupDiv, 'あ', 'あ、い、う、え、お');
@@ -275,7 +275,8 @@ function CheckSelected(){
     let buttons = document.querySelectorAll('label');
 
     //check if first one is check
-    let all = buttons[0].classList.contains('check');
+    // let all = buttons[0].classList.contains('check');
+    let all = false;
 
     if(all){
         //construir todos

@@ -1,14 +1,86 @@
+
+
+const OnTurnOffBaseKana = new CustomEvent('onTurnOffBaseKana', 
+    {detail:null,bubbles:true}
+);
+
 let instrucciones = {
     home : 'Selecciona la opcion que quieres. Puedes aprender las letras de Hiragana/Katakana desde 0 o practicarlas si ya las sabes.', 
-    aprender : 'Selecciona cuales kana quieres aprender.',
-    practicar : 'Selecciona cuales kana quieres practicar.',
-    kanatable : 'Escribe en cada tarjeta la lectura en romaji del kana.'
+    aprender : 'Selecciona cuales Kana quieres aprender.',
+    practicar : 'Selecciona cuales Kana quieres practicar.',
+    kanatable : 'Escribe en cada tarjeta la lectura en romaji del Kana.'
 }
 
-const kanaSets = {
+function FindBaseGroup(kana){
+    let basekey;
+
+    if(mainkanasets.hasOwnProperty(kana)){
+        basekey = 'all-base';
+        return basekey;
+    }
+
+    if(dakutenkanasets.hasOwnProperty(kana)){
+        basekey = 'all-dakuten';
+        return basekey;
+    }
+
+    if(combkanasets.hasOwnProperty(kana)){
+        basekey = 'all-comb';
+        return basekey;
+    }
+    
+    return 'null';
+}
+
+function BaseToObject(base){
+    switch (base) {
+        case 'all-base':
+            return mainkanasets;
+        case 'all-dakuten':
+            return dakutenkanasets;
+        case 'all-comb':
+            return combkanasets;
+    }
+}
+
+const mainkanasets = {
     あ : ['あ','い','う','え','お'],
     か : ['か','き','く','け','こ'],
+    さ : ['さ','し','す','せ','そ'],
+    た : ['た','ち','つ','て','と'],
+    な : ['な','に','ぬ','ね','の'],
+    は : ['は','ひ','ふ','へ','ほ'],
+    ま : ['ま','み','む','め','も'],
+    や : ['や','ゆ','よ'],
+    ら : ['ら','り','る','れ','ろ'],
+    わ : ['わ','を','ん'],
 }
+
+const dakutenkanasets = {
+    が : ['が','ぎ','ぐ','げ','ご'],
+    ざ : ['ざ','じ','ず','ぜ','ぞ'],
+    だ : ['だ','ぢ','づ','で','ど'],
+    ば : ['ば','び','ぶ','べ','ぼ'],
+    ぱ : ['ぱ','ぴ','ぷ','ぺ','ぽ'],
+    ぎゃ : ['ぎゃ','ぎゅ','ぎょ'],
+    じゃ : ['じゃ','じゅ','じょ'],
+    びゃ : ['びゃ','びゅ','びょ'],
+    ぴゃ : ['ぴゃ','ぴゅ','ぴょ'],
+}
+
+const combkanasets = {   
+    きゃ : ['きゃ','きゅ','きょ'],
+    しゃ : ['しゃ','しゅ','しょ'],
+    ちゃ : ['ちゃ','ちゅ','ちょ'],
+    にゃ : ['にゃ','にゅ','にょ'],
+    ひゃ : ['ひゃ','ひゅ','ひょ'],
+    みゃ : ['みゃ','みゅ','みょ'],
+    りゃ : ['りゃ','りゅ','りょ'],   
+}
+
+const allkana = { ...mainkanasets, ...dakutenkanasets, ...combkanasets}
+
+console.log(allkana.length);
 
 const kanaAnswers = {
     あ : 'a',
@@ -21,6 +93,100 @@ const kanaAnswers = {
     く : 'ku',
     け : 'ke',
     こ : 'ko',
+    さ : 'sa',
+    し : 'shi',
+    す : 'su',
+    せ : 'se',
+    そ : 'so',
+    た : 'ta',
+    ち : 'chi',
+    つ : 'tsu',
+    て : 'te',
+    と : 'to',
+    な : 'na',
+    に : 'ni',
+    ぬ : 'nu',
+    ね : 'ne',
+    の : 'no',
+    は : 'ha',
+    ひ : 'hi',
+    ふ : 'fu',
+    へ : 'he',
+    ほ : 'ho',
+    ま : 'ma',
+    み : 'mi',
+    む : 'mu',
+    め : 'me',
+    も : 'mo',
+    や : 'ya',
+    ゆ : 'yu',
+    よ : 'yo',
+    ら : 'ra',
+    り : 'ri',
+    る : 'ru',
+    れ : 're',
+    ろ : 'ro',
+    わ : 'wa',
+    を : 'wo',
+    ん : 'n',
+    が : 'ga',
+    ぎ : 'gi',
+    ぐ : 'gu',
+    げ : 'ge',
+    ご : 'go',
+    ざ : 'za',
+    じ : 'ji',
+    ず : 'zu',
+    ぜ : 'ze',
+    ぞ : 'zo',
+    だ : 'da',
+    ぢ : 'di',
+    づ : 'du',
+    で : 'de',
+    ど : 'do',
+    ば : 'ba',
+    び : 'bi',
+    ぶ : 'bu',
+    べ : 'be',
+    ぼ : 'bo',
+    ぱ : 'pa',
+    ぴ : 'pi',
+    ぷ : 'pu',
+    ぺ : 'pe',
+    ぽ : 'po',
+    きゃ : 'kya',
+    きゅ : 'kyu',
+    きょ : 'kyo',
+    しゃ : 'sha',
+    しゅ : 'shu',
+    しょ : 'sho',
+    ちゃ : 'cha',
+    ちゅ : 'chu',
+    ちょ : 'cho',
+    にゃ : 'nya',
+    にゅ : 'nyu',
+    にょ : 'nyo',
+    ひゃ : 'hya',
+    ひゅ : 'hyu',
+    ひょ : 'hyo',
+    みゃ : 'mya',
+    みゅ : 'myu',
+    みょ : 'myo',
+    りゃ : 'rya',
+    りゅ : 'ryu',
+    りょ : 'ryo',
+    ぎゃ : 'gya',
+    ぎゅ : 'gyu',
+    ぎょ : 'gyo',
+    じゃ : 'ja',
+    じゅ : 'ju',
+    じょ : 'jo',
+    びゃ : 'bya',
+    びゅ : 'byu',
+    びょ : 'byo',
+    ぴゃ : 'pya',
+    ぴゅ : 'pyu',
+    ぴょ : 'pyo',
 }
 
 let kanas = [
@@ -144,11 +310,13 @@ function BuildPracticeSetupPage(){
     //crear boton All
     // CreateLabelInput(setupDiv, 'all-main', 'Todos los Kana');
 
+    CreateSetupButtons(setupDiv);
+
     //crear boton A
-    CreateLabelInput(setupDiv, 'あ', 'あ、い、う、え、お');
+    //CreateLabelInput(setupDiv, 'あ', 'あ、い、う、え、お');
 
     //crear boton KA
-    CreateLabelInput(setupDiv, 'か', 'か、き、く、け、こ');
+    //CreateLabelInput(setupDiv, 'か', 'か、き、く、け、こ');
 
     //ToggleClass(allkanabutton, 'check');
 
@@ -163,6 +331,153 @@ function BuildPracticeSetupPage(){
     let startButton = CreateUiButton(app, 'Empezar Practica');
     startButton.addEventListener('click', CheckSelected);
 }
+
+//crea los botones para seleccionar los kana, pratice setup page
+function CreateSetupButtons(parentDiv){
+    let firstDiv = document.createElement('div');
+    parentDiv.appendChild(firstDiv);
+
+    //creo boton all main
+    let allbaseinput = CreateGroupLabelInput(firstDiv, 'all-base', 'Todos Kana base');
+    //document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
+    document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
+
+    
+    //allbaseinput.addEventListener('change', () => ToggleGroup(allbaseinput, mainkanasets));
+    //allbaseinput.addEventListener('click', ClickInput);
+
+    let maincheckboxes = document.createElement('div');
+    maincheckboxes.classList.add('checkboxes');
+    firstDiv.appendChild(maincheckboxes);
+
+    Object.keys(mainkanasets).forEach(key => {
+        CreateLabelInput(maincheckboxes, key, mainkanasets[key]);       
+        //console.log(key);
+        //console.log(kanaSets[key]);
+    });
+
+    let secondDiv = document.createElement('div');
+    parentDiv.appendChild(secondDiv);
+
+    let alldakuteninput = CreateGroupLabelInput(secondDiv , 'all-dakuten', 'Todos Dakuten/Handakuten');
+
+    let dakutencheckboxes = document.createElement('div');
+    dakutencheckboxes.classList.add('checkboxes');
+    secondDiv.appendChild(dakutencheckboxes);
+
+    Object.keys(dakutenkanasets).forEach(key => {
+        CreateLabelInput(dakutencheckboxes, key, dakutenkanasets[key]);
+        //console.log(key);
+        //console.log(kanaSets[key]);
+    });
+
+    let thirdDiv = document.createElement('div');
+    parentDiv.appendChild(thirdDiv);
+
+    let allcombinput = CreateGroupLabelInput(thirdDiv , 'all-comb', 'Todos Combinacion');
+
+    let combcheckboxes = document.createElement('div');
+    combcheckboxes.classList.add('checkboxes');
+    thirdDiv.appendChild(combcheckboxes);
+
+
+    Object.keys(combkanasets).forEach(key => {
+        CreateLabelInput(combcheckboxes, key, combkanasets[key]);
+        //console.log(key);
+        //console.log(kanaSets[key]);
+    });
+
+}
+
+function TurnOffGroupButton(base){
+    document.querySelector(`[for='${base}']`).classList.remove('check');
+}
+
+function ClickInput(event){
+    console.log(event.target.parentElement);
+    //console.log(event.target.parentElement);
+    let newState = ToggleGroupClass(event.target.parentElement, 'check');
+
+    //si new state es true, significa que prendi el boton
+    //aqui tengo que pasar por todos los botones y ponerles check
+    //como obtengo todos los label correspondiente al main label que mando este evento?
+    let base = event.target.parentElement.getAttribute('for');
+
+    let object = BaseToObject(base);
+    console.log(object);
+
+    let labels = GetAllLabels(object);
+    console.log(labels);
+
+    if(newState){
+        TurnAllOn(labels);
+    }else{
+        TurnAllOff(labels);
+    }
+}
+
+function TurnAllOn(group){
+    //por cada label en el grupo
+    group.forEach(element => {
+        if(!element.classList.contains('check')){
+            element.classList.add('check');
+        }
+    });
+    //si no tiene la clase check, agregar clase check
+}
+
+function TurnAllOff(group){
+    //por cada label en el grupo
+    group.forEach(element => {
+        if(element.classList.contains('check')){
+            element.classList.remove('check');
+        }
+    });
+    //si no tiene la clase check, agregar clase check
+}
+
+//cambia de estado un boton de grupo
+// function ToggleGroup(sender, group){
+//     //al llegar aqui ya cambie de estado el label
+//     //tengo que asumir que si contiene la clase check, es porque boton no estaba activado
+//     //y este evento lo activo
+
+//     //si esta checked es porque lo prendi ahora y necesito prender los demas
+//     let isChecked = sender.parentElement.classList.contains('check');
+//     let labels = [];
+
+//     if(isChecked){
+//         Object.keys(group).forEach(key => {
+//             let input = document.querySelector(`#${key}`);
+//             let label = input.parentElement;
+//             SetActive(label);
+//             //console.log(label);           
+//         });
+//     }else{
+//         Object.keys(group).forEach(key => {
+//             let input = document.querySelector(`#${key}`);
+//             let label = input.parentElement;
+//             SetNotActive(label);
+//             //console.log(label);           
+//         });
+//     }
+   
+//     //console.log(sender.parentElement.classList.contains('check'));
+// }
+
+// function SetActive(label){
+//     if(label.classList.contains('check')){
+//         return;
+//     }
+
+//     label.classList.add('check');
+// }
+
+// function SetNotActive(label){
+//     if(label.classList.contains('check')){
+//         label.classList.remove('check');
+//     }  
+// }
 
 //first load
 //popular instrucciones
@@ -232,12 +547,36 @@ function CreateAndId(component ,parent, id){
     return newComponent;
 }
 
-function ToggleClass(element, clase){
+function ToggleGroupClass(element, clase){
     let contains = element.classList.contains(clase);
     if(contains){
         element.classList.remove(clase);
+        return false;
     }else{
         element.classList.add(clase);
+        return true;
+    }
+}
+
+function ToggleClass(element, clase){
+    let contains = element.classList.contains(clase);
+    if(contains){
+        //aqui estoy apagando un boton
+        //document.dispatchEvent(OnTurnOffBaseKana);
+        //element.dispatchEvent(OnTurnOffBaseKana);
+        //basado en el kana de este element, por ej: あ obtener el 'all base'
+        let attr = element.getAttribute('for');
+
+        let base = FindBaseGroup(attr);
+        let targetlabel = document.querySelector(`[for='${base}']`);
+        targetlabel.classList.remove(clase);
+
+        element.classList.remove(clase);
+        return false;
+    }else{
+        //aqui estoy prendiendo un boton
+        element.classList.add(clase);
+        return true;
     }
     //console.log(bool);
 }
@@ -255,24 +594,44 @@ function CreateUiButton(parent, text){
     return button;
 }
 
-function CreateLabelInput(parent, inputId, text){
+function CreateGroupLabelInput(parent, id, text){
     //crea los label en el menu de setup
     let label = CreateAndClass('label', parent, classes = ['select-box']);
-    let input = CreateAndId('input', label, inputId);
+    //label.setAttribute('id', id);
+    let input = CreateAndId('input', label, id);
     input.classList.add('setup-input');
-    label.setAttribute('for', inputId);
+    label.setAttribute('for', id);
+    let node = document.createTextNode (text);
+    label.appendChild(node);
+    input.setAttribute('type', 'checkbox');
+    input.addEventListener('click', ClickInput);
+
+    return input;
+}
+
+function CreateLabelInput(parent, id, text){
+    //crea los label en el menu de setup
+    let label = CreateAndClass('label', parent, classes = ['select-box']);
+    //label.setAttribute('id', id);
+    let input = CreateAndId('input', label, id);
+    input.classList.add('setup-input');
+    label.setAttribute('for', id);
     let node = document.createTextNode (text);
     label.appendChild(node);
     input.setAttribute('type', 'checkbox');
     input.addEventListener('change', function() {
         ToggleClass(label, 'check');
     });
+
+    return input;
 }
 
 //construye pagina de practica basada en seleccion
 function CheckSelected(){
     //get all labels
-    let buttons = document.querySelectorAll('label');
+    // let checkboxes = document.querySelector('.checkboxes');
+    // console.log(checkboxes);
+    let buttons = document.querySelectorAll("div.checkboxes > label");
 
     //check if first one is check
     // let all = buttons[0].classList.contains('check');
@@ -310,6 +669,7 @@ function BuildPracticePage(){
     //esta construye todas las tarjetas
 }
 
+//construye la pagina de practica, basado en los kanas seleccionados
 function BuildPracticePage(selected){
     //clean page
     let app = document.getElementById('app');
@@ -327,14 +687,18 @@ function BuildPracticePage(selected){
         kanasBase.push(kanaBase);
     });
 
+    console.log(kanasBase);
+
     //hacer un array de todos los kanas necesarios ocupando los kana base
     let kanas = [];
     kanasBase.forEach(basekana => {
-        let allkana = kanaSets[basekana];
-        allkana.forEach(kana => {
+        let base = allkana[basekana];
+        base.forEach(kana => {
             kanas.push(kana);
         });
     });
+
+    console.log(kanas);
 
     //randomizar los kana
     let randomkanas = shuffleArray(kanas);
@@ -373,7 +737,10 @@ function BuildKanaCard(kana){
     let question = document.createElement('div');
     cardDiv.appendChild(question);
     question.classList.add('question');
-    question.textContent = kana;
+    let span = document.createElement('span');
+    span.classList.add('question-span');
+    span.textContent = kana;
+    question.appendChild(span);
     let form = document.createElement('form');
     cardDiv.appendChild(form);
     form.classList.add('form');
@@ -443,4 +810,15 @@ function LoopingIncrement(index, length){
     }
 
     return newindex;
+}
+
+function GetAllLabels(kanaset){
+    let labels = [];
+
+    Object.keys(kanaset).forEach(key =>{
+        let label = document.querySelector(`#${key}`);
+        labels.push(label.parentElement);
+    });
+
+    return labels;
 }

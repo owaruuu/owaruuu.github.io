@@ -1,5 +1,5 @@
 /* * {
-    border: black solid;
+    border: black solid 1px;
 } */
 
 body{
@@ -18,7 +18,9 @@ body{
     flex: 1;
     /* overflow-y: auto; */
     /* max-width: 60rem; */
-    margin: 0 auto 2rem;
+    /* margin: 0 auto 2rem; */
+    margin-left: clamp(1rem,5rem,10rem);
+    margin-right: clamp(1rem,5rem,10rem);
 }
 
 #header{
@@ -164,10 +166,11 @@ button:active:enabled .uibtn-top {
     display: flex;
     flex-direction: column;
     overflow:hidden;
-    width: 150px;
+    /* width: 150px; */
     height: 200px; 
     border-radius: 10px;
     filter: drop-shadow(2px 5px 0px #1b021a38);
+    min-width: 9rem;
 }
 
 .selected {
@@ -180,7 +183,12 @@ button:active:enabled .uibtn-top {
     background-color: lightblue;
     border-bottom: gray dotted;
     flex : 1;
-    line-height: 131px;
+    line-height: 109px;
+    max-height: 8rem;
+}
+
+.question-span{
+    font-size: clamp(3rem,5rem,9rem);
 }
 
 .form {
@@ -213,6 +221,8 @@ input[type=text] {
 
 .setupDiv{
     flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .practiceDiv{
@@ -224,7 +234,8 @@ input[type=text] {
 }
 
 .select-box{
-    --margin : 19px;
+    --margin : .6rem;
+    --marginsides : .5rem;
     display: block;
     border: .3vw solid #595758;
     color: #595758;
@@ -232,7 +243,7 @@ input[type=text] {
     border-radius: 9px;
     font-size: 1.5rem;
     transition: 0.2s ease;
-    margin: var(--margin) 0px var(--margin) 0;
+    margin: var(--margin) var(--marginsides) var(--margin) var(--marginsides);
 }
 
 label{

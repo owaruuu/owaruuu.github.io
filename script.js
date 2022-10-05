@@ -11,8 +11,8 @@ let instrucciones = {
     aprender : 'Selecciona cuales Kana quieres aprender.',
     practicar : 'Selecciona cuales Kana quieres practicar.',
     kanatable : 'Escribe en cada tarjeta la lectura en romaji del Kana.',
-    kanalearn : 'Estudia estas tarjetas para luego responder un Quiz.',
-    kanaquiz : 'Seleccion de las opciones abajo el romaji correcto',
+    kanalearn : 'Estudia estas tarjetas para luego responder un Quiz.(Intenta escribir un par de veces estas letras si no las conocias.)',
+    kanaquiz : 'Selecciona de las opciones abajo el romaji correcto, puedes repetir el Quiz las veces que quieras antes de continuar.',
 };
 
 function FindBaseGroup(kana){
@@ -606,7 +606,10 @@ function BuildQuiz(){
 
     //build kana
     let kanaQuizPrompt = CreateAndClass('div', quizDiv, classes = ['quizprompt']);
-    kanaQuizPrompt.textContent = currentSet[0];
+    let kanaQuizPromptText = CreateSimple('p', kanaQuizPrompt);
+    kanaQuizPromptText.classList.add('fade');
+    kanaQuizPromptText.classList.add('quizprompttext');
+    kanaQuizPromptText.textContent = currentSet[0];
 
     CreateAndClass('div', quizDiv, classes = ['spacer']);
 
@@ -640,6 +643,32 @@ function BuildQuiz(){
 
     AppendQuizButtons(answerButtonsArray, answerButtons);
 }
+
+function GoToNextQuiz(){
+    //get kana display
+    let kanatext = document.querySelector('.quizprompt p');
+    let kanaindisplay = kanatext.textContent;
+    //see if can get next kana
+    let currentindex = currentSet.indexOf(kanaindisplay);
+    let nextindex = currentindex + 1;
+    if(nextindex >= currentSet.length){
+     console.log('llegue al final del set');
+     //aqui deberia reemplazar los botones
+     ShowAgainNextButtons();
+ 
+    }else{
+     //change display kana
+    //kanatext.textContent = currentSet[nextindex];
+     toggleTransitionWithTimeout(kanatext, currentSet[nextindex]);
+ 
+     //erase buttons
+     let buttonsdiv = document.querySelector('.quizbuttonsdiv');
+     buttonsdiv.innerHTML = "";
+ 
+     //create buttons again
+     CreateQuizButtons(nextindex ,buttonsdiv);
+    } 
+ }
 
 function CreateQuizButtons(currentindex, parent){
     //build answer button array
@@ -679,7 +708,7 @@ function AnswerQuiz(event){
     event.target.classList.add('correctquiz');
     event.target.disabled = true;
     
-    setTimeout(GoToNextQuiz,350);  
+    setTimeout(GoToNextQuiz,850);  
 }
 
 function FailQuiz(event){
@@ -688,30 +717,16 @@ function FailQuiz(event){
     event.target.disabled = true;
 }
 
-function GoToNextQuiz(){
-   //get kana display
-   let kanadiv = document.querySelector('.quizprompt');
-   let kanaindisplay = kanadiv.textContent;
-   //see if can get next kana
-   let currentindex = currentSet.indexOf(kanaindisplay);
-   let nextindex = currentindex + 1;
-   if(nextindex >= currentSet.length){
-    console.log('llegue al final del set');
-    //aqui deberia reemplazar los botones
-    ShowAgainNextButtons();
 
-   }else{
-    //change display kana
-    kanadiv.textContent = currentSet[nextindex];
 
-    //erase buttons
-    let buttonsdiv = document.querySelector('.quizbuttonsdiv');
-    buttonsdiv.innerHTML = "";
-
-    //create buttons again
-    CreateQuizButtons(nextindex ,buttonsdiv);
-   }
-   
+function toggleTransitionWithTimeout(element, text){
+    element.classList.remove('fade');
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            element.textContent = text;
+            element.classList.add('fade');
+        })
+    }, 225);
 }
 
 function ShowAgainNextButtons(){
@@ -848,16 +863,6 @@ function CheckLearnSelected(){
     //get all labels
     let buttons = document.querySelectorAll("div.checkboxes > label");
     //console.log(`esto es lo que tengo en buttons: ${buttons}`);
-
-    //check if first one is check
-    // let all = buttons[0].classList.contains('check');
-    let all = false;
-
-    if(all){
-        //construir todos
-        BuildPracticePage();
-        return;
-    }
 
     //hacer un array con todos los 'check'
     let checked = []; 

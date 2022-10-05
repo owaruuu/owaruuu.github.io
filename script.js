@@ -1,15 +1,19 @@
+let learnSets = [
+    ['あ','い','う','え','お'],
+    ['か','き','く','け','こ'],
+];
 
-
-const OnTurnOffBaseKana = new CustomEvent('onTurnOffBaseKana', 
-    {detail:null,bubbles:true}
-);
+let currentSet = [];
+// let currentSet =  ['あ','い','う','え','お'];
 
 let instrucciones = {
     home : 'Selecciona la opcion que quieres. Puedes aprender las letras de Hiragana/Katakana desde 0 o practicarlas si ya las sabes.', 
     aprender : 'Selecciona cuales Kana quieres aprender.',
     practicar : 'Selecciona cuales Kana quieres practicar.',
-    kanatable : 'Escribe en cada tarjeta la lectura en romaji del Kana.'
-}
+    kanatable : 'Escribe en cada tarjeta la lectura en romaji del Kana.',
+    kanalearn : 'Estudia estas tarjetas para luego responder un Quiz.',
+    kanaquiz : 'Seleccion de las opciones abajo el romaji correcto',
+};
 
 function FindBaseGroup(kana){
     let basekey;
@@ -30,7 +34,7 @@ function FindBaseGroup(kana){
     }
     
     return 'null';
-}
+};
 
 function BaseToObject(base){
     switch (base) {
@@ -41,7 +45,7 @@ function BaseToObject(base){
         case 'all-comb':
             return combkanasets;
     }
-}
+};
 
 const mainkanasets = {
     あ : ['あ','い','う','え','お'],
@@ -54,7 +58,7 @@ const mainkanasets = {
     や : ['や','ゆ','よ'],
     ら : ['ら','り','る','れ','ろ'],
     わ : ['わ','を','ん'],
-}
+};
 
 const dakutenkanasets = {
     が : ['が','ぎ','ぐ','げ','ご'],
@@ -66,7 +70,7 @@ const dakutenkanasets = {
     じゃ : ['じゃ','じゅ','じょ'],
     びゃ : ['びゃ','びゅ','びょ'],
     ぴゃ : ['ぴゃ','ぴゅ','ぴょ'],
-}
+};
 
 const combkanasets = {   
     きゃ : ['きゃ','きゅ','きょ'],
@@ -76,11 +80,9 @@ const combkanasets = {
     ひゃ : ['ひゃ','ひゅ','ひょ'],
     みゃ : ['みゃ','みゅ','みょ'],
     りゃ : ['りゃ','りゅ','りょ'],   
-}
+};
 
 const allkana = { ...mainkanasets, ...dakutenkanasets, ...combkanasets}
-
-console.log(allkana.length);
 
 const kanaAnswers = {
     あ : 'a',
@@ -187,37 +189,118 @@ const kanaAnswers = {
     ぴゃ : 'pya',
     ぴゅ : 'pyu',
     ぴょ : 'pyo',
-}
+};
 
-let kanas = [
-    {
-        kana : 'か',
-        answer : 'ka',
-    },
-    {
-        kana : 'き',
-        answer : 'ki',
-    },
-    {
-        kana : 'く',
-        answer : 'ku',
-    },
-    {
-        kana : 'け',
-        answer : 'ke',
-    },
-    {
-        kana : 'こ',
-        answer : 'ko',
-    },
-]
+const kanaWrongs = {
+    あ : ['e', 'o', 'u', 'i', ],
+    い : 'i',
+    う : 'u',
+    え : 'e',
+    お : 'o',
+    か : 'ka',
+    き : 'ki',
+    く : 'ku',
+    け : 'ke',
+    こ : 'ko',
+    さ : 'sa',
+    し : 'shi',
+    す : 'su',
+    せ : 'se',
+    そ : 'so',
+    た : 'ta',
+    ち : 'chi',
+    つ : 'tsu',
+    て : 'te',
+    と : 'to',
+    な : 'na',
+    に : 'ni',
+    ぬ : 'nu',
+    ね : 'ne',
+    の : 'no',
+    は : 'ha',
+    ひ : 'hi',
+    ふ : 'fu',
+    へ : 'he',
+    ほ : 'ho',
+    ま : 'ma',
+    み : 'mi',
+    む : 'mu',
+    め : 'me',
+    も : 'mo',
+    や : 'ya',
+    ゆ : 'yu',
+    よ : 'yo',
+    ら : 'ra',
+    り : 'ri',
+    る : 'ru',
+    れ : 're',
+    ろ : 'ro',
+    わ : 'wa',
+    を : 'wo',
+    ん : 'n',
+    が : 'ga',
+    ぎ : 'gi',
+    ぐ : 'gu',
+    げ : 'ge',
+    ご : 'go',
+    ざ : 'za',
+    じ : 'ji',
+    ず : 'zu',
+    ぜ : 'ze',
+    ぞ : 'zo',
+    だ : 'da',
+    ぢ : 'di',
+    づ : 'du',
+    で : 'de',
+    ど : 'do',
+    ば : 'ba',
+    び : 'bi',
+    ぶ : 'bu',
+    べ : 'be',
+    ぼ : 'bo',
+    ぱ : 'pa',
+    ぴ : 'pi',
+    ぷ : 'pu',
+    ぺ : 'pe',
+    ぽ : 'po',
+    きゃ : 'kya',
+    きゅ : 'kyu',
+    きょ : 'kyo',
+    しゃ : 'sha',
+    しゅ : 'shu',
+    しょ : 'sho',
+    ちゃ : 'cha',
+    ちゅ : 'chu',
+    ちょ : 'cho',
+    にゃ : 'nya',
+    にゅ : 'nyu',
+    にょ : 'nyo',
+    ひゃ : 'hya',
+    ひゅ : 'hyu',
+    ひょ : 'hyo',
+    みゃ : 'mya',
+    みゅ : 'myu',
+    みょ : 'myo',
+    りゃ : 'rya',
+    りゅ : 'ryu',
+    りょ : 'ryo',
+    ぎゃ : 'gya',
+    ぎゅ : 'gyu',
+    ぎょ : 'gyo',
+    じゃ : 'ja',
+    じゅ : 'ju',
+    じょ : 'jo',
+    びゃ : 'bya',
+    びゅ : 'byu',
+    びょ : 'byo',
+    ぴゃ : 'pya',
+    ぴゅ : 'pyu',
+    ぴょ : 'pyo',
+};
 
 const container = document.querySelector('.container');
-// const input = document.querySelector('.input');
 
-// kanas.forEach(kana => {
-//     BuildCard(kana)
-// });
+BuildHomePage();
 
 function BuildCard(kana){
     let cardDiv = document.createElement('div');
@@ -238,12 +321,6 @@ function BuildCard(kana){
     input.size = 4;
     input.maxLength = 5;
 }
-
-// const forms = document.querySelectorAll('.form');
-
-// forms.forEach(form => {
-//     form.addEventListener('submit', Submit);
-// });
 
 function Submit(event){
     let cardDiv = event.target.parentElement;
@@ -267,33 +344,11 @@ function Submit(event){
 
     //console.log(event.target[0].value);
     //console.log(event.target.parentElement);
-    //console.log(event.target[0]);
     console.log(event);
-    //console.log(cardDiv.dataset.answer);
-    
+    //console.log(cardDiv.dataset.answer);  
     //cardDiv.setAttribute('data-some', 20);
     
     event.preventDefault();
-}
-
-function GetContent(id, callback){
-
-    let pages = {
-        home: 'home',
-        learn: 'learn',
-        practice: 'practice',
-    };
-
-    callback(pages[id]);
-}
-
-//construye pagina base
-function LoadContent(id){
-    let contentDiv = document.getElementById('app');
-
-    GetContent(id, function(content){
-        //construir pagina basado en string
-    })
 }
 
 function BuildPracticeSetupPage(){
@@ -311,22 +366,6 @@ function BuildPracticeSetupPage(){
     // CreateLabelInput(setupDiv, 'all-main', 'Todos los Kana');
 
     CreateSetupButtons(setupDiv);
-
-    //crear boton A
-    //CreateLabelInput(setupDiv, 'あ', 'あ、い、う、え、お');
-
-    //crear boton KA
-    //CreateLabelInput(setupDiv, 'か', 'か、き、く、け、こ');
-
-    //ToggleClass(allkanabutton, 'check');
-
-    // let allkanaButton = document.createElement('label');
-    // allkanaButton.classList.add('select-box');
-
-    // allkanaButton.appendChild(document.createElement('input'));
-    // allkanaButton.textContent = 'Todos los Kana';
-
-    // practiceDiv.appendChild(allkanaButton);
 
     let startButton = CreateUiButton(app, 'Empezar Practica');
     startButton.addEventListener('click', CheckSelected);
@@ -394,7 +433,7 @@ function TurnOffGroupButton(base){
 }
 
 function ClickInput(event){
-    console.log(event.target.parentElement);
+    //console.log(event.target.parentElement);
     //console.log(event.target.parentElement);
     let newState = ToggleGroupClass(event.target.parentElement, 'check');
 
@@ -404,10 +443,10 @@ function ClickInput(event){
     let base = event.target.parentElement.getAttribute('for');
 
     let object = BaseToObject(base);
-    console.log(object);
+    //console.log(object);
 
     let labels = GetAllLabels(object);
-    console.log(labels);
+    //console.log(labels);
 
     if(newState){
         TurnAllOn(labels);
@@ -436,86 +475,424 @@ function TurnAllOff(group){
     //si no tiene la clase check, agregar clase check
 }
 
-//cambia de estado un boton de grupo
-// function ToggleGroup(sender, group){
-//     //al llegar aqui ya cambie de estado el label
-//     //tengo que asumir que si contiene la clase check, es porque boton no estaba activado
-//     //y este evento lo activo
+function StartLearning(){
+    let app = document.getElementById('app');
+    app.innerHTML = "";
 
-//     //si esta checked es porque lo prendi ahora y necesito prender los demas
-//     let isChecked = sender.parentElement.classList.contains('check');
-//     let labels = [];
+    //instrucciones
+    let instContent = document.getElementById('instruccionescontent');
+    instContent.textContent = instrucciones.kanalearn;
 
-//     if(isChecked){
-//         Object.keys(group).forEach(key => {
-//             let input = document.querySelector(`#${key}`);
-//             let label = input.parentElement;
-//             SetActive(label);
-//             //console.log(label);           
-//         });
-//     }else{
-//         Object.keys(group).forEach(key => {
-//             let input = document.querySelector(`#${key}`);
-//             let label = input.parentElement;
-//             SetNotActive(label);
-//             //console.log(label);           
-//         });
-//     }
+    //armar divs
+    let learnDiv = CreateAndClass('div', app, classes = ['learndiv']);
+    let learnCard = CreateAndClass('div', learnDiv, classes = ['learncard']);
+    let learnKanaSection = CreateAndClass('div', learnCard, classes = ['kanasection']);
+    let learnKanaTitle = CreateAndClass('div', learnKanaSection, classes = ['learnkanatitle']);
+    let learnKana = CreateAndClass('div', learnKanaSection, classes = ['learnkana']);
+    let learnRomajiSection = CreateAndClass('div', learnCard, classes = ['romajisection']);
+    let learnRomaji = CreateAndClass('div', learnRomajiSection, classes = ['learnromaji']);
+    let learnRomajiTitle = CreateAndClass('div', learnRomajiSection, classes = ['learnromajititle']);
+
+    //popular contenido
+    
+    learnKanaTitle.textContent = 'Kana';
+    learnKana.textContent = currentSet[0];
+    learnRomaji.textContent = kanaAnswers[currentSet[0]];
+    learnRomajiTitle.textContent = 'Romaji';
+
+    CreateAndClass('div',learnDiv , classes = ['spacer'] );
+
+    let buttonsdiv = CreateAndClass('div',learnDiv , classes = ['btn-div'] );
+
+    let prevButton = CreateAndClass('button', buttonsdiv, classes = ['prevbtn']);
+    prevButton.addEventListener('click', PreviousButton);
+    prevButton.textContent = 'Atras';
+    prevButton.disabled = true;
+
+    let nextButton = CreateAndClass('button', buttonsdiv, classes = ['nextbtn']);
+    nextButton.addEventListener('click', NextButton);
+    nextButton.textContent = 'Siguiente';
+}
+
+function PreviousButton(){
+    let kanaelement = document.querySelector('.learnkana');
+    let kana = kanaelement.textContent
+
+    let index = currentSet.indexOf(kana);
+
+    let indexminusone = index - 1;
+    let prevkana = currentSet[indexminusone];
+
+    if(indexminusone < 0){
+        console.log('estoy al principio');       
+    }else{
+        kanaelement.textContent = prevkana;
+
+        //buscar el romaji correspondiente al nuevo kana y ponerlo tambien
+        let romaji = kanaAnswers[prevkana];
+
+        let romajielement = document.querySelector('.learnromaji');
+        romajielement.textContent = romaji;
+
+        //aqui tengo que cambiar el comportamiento del button
+        //necesito revisar si quede en el primer kana y desactivar el button
+        let previndex = indexminusone - 1;
+        if(previndex < 0){
+            let prevbutton = document.querySelector('.prevbtn');
+            prevbutton.disabled = true;
+        }
+    }
+
+    let nextbutton = document.querySelector('.nextbtn');
+    if(nextbutton.classList.contains('quiz')){
+        nextbutton.classList.remove('quiz');
+        nextbutton.textContent = 'Siguiente';
+        nextbutton.disabled = false;
+    }
+}
+
+//next button de la parte learn
+function NextButton(){
+    //tomando el kana actual, buscarlo en el array y cambiar al siguiente si es posible
+    let kanaelement = document.querySelector('.learnkana');
+    let kana = kanaelement.textContent
+
+    let index = currentSet.indexOf(kana);
+
+    let indexplusone = index + 1;
+    let nextkana = currentSet[indexplusone];
+
+    if(indexplusone >= currentSet.length){   
+        BuildQuiz();   
+    }else{
+        kanaelement.textContent = nextkana;
+
+        //buscar el romaji correspondiente al nuevo kana y ponerlo tambien
+        let romaji = kanaAnswers[nextkana];
+
+        let romajielement = document.querySelector('.learnromaji');
+        romajielement.textContent = romaji;
+
+        //aqui tengo que cambiar el comportamiento del button
+        //necesito revisar si quede en el ultimo kana y cambiar el boton por el quiz
+        let nextindex = indexplusone+1;
+        if(nextindex >= currentSet.length){
+            let nextbutton = document.querySelector('.nextbtn');
+            nextbutton.textContent = 'Quiz! ->';
+            nextbutton.classList.add('quiz');
+            nextbutton.disabled = true;
+            setTimeout(function(){nextbutton.disabled = false;},500);
+        }
+    }    
+
+    let prevbutton = document.querySelector('.prevbtn');
+
+    if(indexplusone > 0 && prevbutton != null){       
+        prevbutton.disabled = false;
+    }
+}
+
+function BuildQuiz(){
+    let app = CleanAppPage();
+    PopulateInstructions(instrucciones.kanaquiz);
+
+    let quizDiv = CreateAndClass('div', app, classes = ['quizdiv']);
+
+    //randomize kana set
+    let base = getObjKey(allkana,currentSet);
+    //console.log(base);
+
+    currentSet = shuffleArray(currentSet);  
+
+    //build kana
+    let kanaQuizPrompt = CreateAndClass('div', quizDiv, classes = ['quizprompt']);
+    kanaQuizPrompt.textContent = currentSet[0];
+
+    CreateAndClass('div', quizDiv, classes = ['spacer']);
+
+    let answerButtons = CreateAndClass('div', quizDiv, classes = ['quizbuttonsdiv']);
+    //build answer button array
+    let answerButtonsArray = [];
+    //first the answer button.
+    let answerButton = document.createElement('button');
+    answerButton.classList.add('correctquizanswerbtn');
+    let correctAnswer = kanaAnswers[currentSet[0]];
+    answerButton.textContent = correctAnswer;
+    answerButton.addEventListener('click', AnswerQuiz);
+    answerButtonsArray.push(answerButton);
+
+    let firstWrongAnswer = document.createElement('button');
+    firstWrongAnswer.classList.add('incorrectquizanswerbtn');
+    
+    
+    let randomKana = GetRandomKanaFromBaseThatsNot(base, nots = [currentSet[0]]);
+    firstWrongAnswer.textContent = kanaAnswers[randomKana];
+    firstWrongAnswer.addEventListener('click', FailQuiz);
+    answerButtonsArray.push(firstWrongAnswer);
+
+    let secondWrongAnswer = document.createElement('button');
+    secondWrongAnswer.classList.add('incorrectquizanswerbtn');
+    //randomKanaBase = GetRandomThatIsNot(currentSet, nots = [currentSet[0], randomKanaBase]);
+    randomKana = GetRandomKanaFromBaseThatsNot(base, nots = [currentSet[0], randomKana]);
+    secondWrongAnswer.textContent = kanaAnswers[randomKana];
+    secondWrongAnswer.addEventListener('click', FailQuiz);
+    answerButtonsArray.push(secondWrongAnswer);
+
+    AppendQuizButtons(answerButtonsArray, answerButtons);
+}
+
+function CreateQuizButtons(currentindex, parent){
+    //build answer button array
+    let answerButtonsArray = [];
+    //first the answer button.
+    let answerButton = document.createElement('button');
+    answerButton.classList.add('correctquizanswerbtn');
+    let correctAnswer = kanaAnswers[currentSet[currentindex]];
+    answerButton.textContent = correctAnswer;
+    answerButton.addEventListener('click', AnswerQuiz);
+    answerButtonsArray.push(answerButton);
+
+    let firstWrongAnswer = document.createElement('button');
+    firstWrongAnswer.classList.add('incorrectquizanswerbtn');
+    //let randomKanaBase= GetRandomThatIsNot(currentSet, nots = [currentSet[currentindex]]);
+    let base = getObjKey(allkana,currentSet);
+    console.log(base);
+    
+    let randomKana = GetRandomKanaFromBaseThatsNot(base, nots = [currentSet[currentindex]]);
+    firstWrongAnswer.textContent = kanaAnswers[randomKana];
+    firstWrongAnswer.addEventListener('click', FailQuiz);
+    answerButtonsArray.push(firstWrongAnswer);
+
+    let secondWrongAnswer = document.createElement('button');
+    secondWrongAnswer.classList.add('incorrectquizanswerbtn');
+    //randomKanaBase = GetRandomThatIsNot(currentSet, nots = [currentSet[currentindex], randomKanaBase]);
+    randomKana = GetRandomKanaFromBaseThatsNot(base, nots = [currentSet[currentindex], randomKana]);
+    secondWrongAnswer.textContent = kanaAnswers[randomKana];
+    secondWrongAnswer.addEventListener('click', FailQuiz);
+    answerButtonsArray.push(secondWrongAnswer);
+
+    AppendQuizButtons(answerButtonsArray, parent);
+}
+
+function AnswerQuiz(event){
+    //console.log(event.target);
+    event.target.classList.add('correctquiz');
+    event.target.disabled = true;
+    
+    setTimeout(GoToNextQuiz,350);  
+}
+
+function FailQuiz(event){
+    console.log("wrong");
+    event.target.classList.add('incorrectquiz');
+    event.target.disabled = true;
+}
+
+function GoToNextQuiz(){
+   //get kana display
+   let kanadiv = document.querySelector('.quizprompt');
+   let kanaindisplay = kanadiv.textContent;
+   //see if can get next kana
+   let currentindex = currentSet.indexOf(kanaindisplay);
+   let nextindex = currentindex + 1;
+   if(nextindex >= currentSet.length){
+    console.log('llegue al final del set');
+    //aqui deberia reemplazar los botones
+    ShowAgainNextButtons();
+
+   }else{
+    //change display kana
+    kanadiv.textContent = currentSet[nextindex];
+
+    //erase buttons
+    let buttonsdiv = document.querySelector('.quizbuttonsdiv');
+    buttonsdiv.innerHTML = "";
+
+    //create buttons again
+    CreateQuizButtons(nextindex ,buttonsdiv);
+   }
    
-//     //console.log(sender.parentElement.classList.contains('check'));
-// }
+}
 
-// function SetActive(label){
-//     if(label.classList.contains('check')){
-//         return;
-//     }
+function ShowAgainNextButtons(){
+    let buttonsdiv = document.querySelector('.quizbuttonsdiv');
+    buttonsdiv.innerHTML = "";
 
-//     label.classList.add('check');
-// }
+    let againbutton = CreateAndClass('button', buttonsdiv, classes = ['againbtn']);
+    againbutton.textContent = 'Una vez mas';
+    againbutton.addEventListener('click', OnAgainButtonPress);
 
-// function SetNotActive(label){
-//     if(label.classList.contains('check')){
-//         label.classList.remove('check');
-//     }  
-// }
+    let currentIndex = learnSets.indexOf(currentSet);
+    let nextindex = currentIndex + 1;
+    if(nextindex >= learnSets.length){
+        //mostrar boton de salir
+        let exitbutton = CreateAndClass('button', buttonsdiv, classes = ['exitbtn']);
+        exitbutton.textContent = 'Salir';
+        exitbutton.addEventListener('click', OnExitButtonPress);
+    }else{
+        //mostrar boton de next set
+        let nextsetbutton = CreateAndClass('button', buttonsdiv, classes = ['nextsetbtn']);
+        nextsetbutton.textContent = 'Seguir';
+        nextsetbutton.addEventListener('click', OnTakeNextButtonPress);
+    }
+}
 
-//first load
-//popular instrucciones
-let instContent = document.getElementById('instruccionescontent');
-instContent.textContent = instrucciones.home;
+function OnAgainButtonPress(event){
+    event.target.disabled = true;
+    setTimeout(TakeQuizAgain, 300);
+}
 
-//cargar ambos botones
-let contentDiv = document.getElementById('app');
+//pregunta denuevo el set de kanas actual
+function TakeQuizAgain(){
+    BuildQuiz();
+}
 
-let homeDiv = document.createElement('div');
-homeDiv.classList.add('homediv');
-contentDiv.appendChild(homeDiv);
+function OnTakeNextButtonPress(event){
+    event.target.disabled = true;
+    setTimeout(TakeNextQuizSet, 300);
+}
 
-let buttonAprender = document.createElement('button');
-buttonAprender.classList.add('uibtn');
-buttonAprender.disabled = true;
-homeDiv.appendChild(buttonAprender);
+//cambia al siguiente set de kana y arma la pagina
+function TakeNextQuizSet(){
+    let currentIndex = learnSets.indexOf(currentSet);
+    let nextindex = currentIndex + 1;
 
-let buttonAprenderTop = document.createElement('span');
-buttonAprenderTop.textContent = 'Aprender';
-buttonAprenderTop.classList.add('uibtn-top');
-buttonAprenderTop.classList.add('disabled');
-buttonAprender.appendChild(buttonAprenderTop);
+    currentSet = learnSets[nextindex];
+    StartLearning();
+}
 
-let buttonPractica = document.createElement('button');
-buttonPractica.classList.add('uibtn');
-homeDiv.appendChild(buttonPractica);
+function OnExitButtonPress(){
+    setTimeout(ExitQuiz, 250);
+}
 
-let buttonPracticaTop = document.createElement('span');
-buttonPracticaTop.textContent = 'Practicar';
-buttonPracticaTop.classList.add('uibtn-top');
-buttonPractica.appendChild(buttonPracticaTop);
+//Sale a la pagina principal
+function ExitQuiz(){
+    location.reload();
+}
 
-buttonPractica.addEventListener('click' , BuildPracticeSetupPage);
+function CleanAppPage(){
+    let app = document.getElementById('app');
+    app.innerHTML = "";
 
+    return app;
+}
 
+function PopulateInstructions(e){
+    let instContent = document.getElementById('instruccionescontent');
+    instContent.textContent = e;
+}
 
+function BuildHomePage(){
+    //first load
+    //popular instrucciones
+    let instContent = document.getElementById('instruccionescontent');
+    instContent.textContent = instrucciones.home;
 
+    //cargar ambos botones
+    let contentDiv = document.getElementById('app');
+
+    let homeDiv = document.createElement('div');
+    homeDiv.classList.add('homediv');
+    contentDiv.appendChild(homeDiv);
+
+    let buttonAprender = document.createElement('button');
+    buttonAprender.classList.add('uibtn');
+    homeDiv.appendChild(buttonAprender);
+
+    let buttonAprenderTop = document.createElement('span');
+    buttonAprenderTop.textContent = 'Aprender';
+    buttonAprenderTop.classList.add('uibtn-top');
+    buttonAprender.appendChild(buttonAprenderTop);
+
+    let buttonPractica = document.createElement('button');
+    buttonPractica.classList.add('uibtn');
+    homeDiv.appendChild(buttonPractica);
+
+    let buttonPracticaTop = document.createElement('span');
+    buttonPracticaTop.textContent = 'Practicar';
+    buttonPracticaTop.classList.add('uibtn-top');
+    buttonPractica.appendChild(buttonPracticaTop);
+
+    buttonAprender.addEventListener('click' , OnLearnButtonPress)
+    buttonPractica.addEventListener('click' , OnPracticeButtonPress);
+}
+
+function OnLearnButtonPress(){
+    //aqui deberia revisar que esta seleccionado y setear el 'learnsets'
+    //esto deberia depender de lo que seleccione en el setup
+    //en este punto el 'learnsets' ya deberia estar seteado y solo tengo que acceder al primero
+    //currentSet = learnSets[0];
+
+    // setTimeout(StartLearning,200);
+    setTimeout(BuildLearnSetupPage, 200);
+}
+
+function OnPracticeButtonPress(){
+    setTimeout(BuildPracticeSetupPage,200);
+}
+
+function BuildLearnSetupPage(){
+    let app = CleanAppPage();
+
+    PopulateInstructions(instrucciones.aprender);
+
+    let practiceSetupDiv = CreateAndClass('div', app, classes = ['setupDiv']);
+
+    CreateSetupButtons(practiceSetupDiv);
+
+    let startButton = CreateUiButton(app, 'Aprender');
+    startButton.addEventListener('click', CheckLearnSelected);
+}
+
+function CheckLearnSelected(){
+    //get all labels
+    let buttons = document.querySelectorAll("div.checkboxes > label");
+    //console.log(`esto es lo que tengo en buttons: ${buttons}`);
+
+    //check if first one is check
+    // let all = buttons[0].classList.contains('check');
+    let all = false;
+
+    if(all){
+        //construir todos
+        BuildPracticePage();
+        return;
+    }
+
+    //hacer un array con todos los 'check'
+    let checked = []; 
+
+    buttons.forEach(button => {
+        if(button.classList.contains('check')){
+            checked.push(button);
+        }
+    });
+
+    if(checked.length < 1){
+        alert('Por favor selecciona lo que quieres practicar.');
+        return;
+    }
+
+    //construir con lo seleccionado
+    //console.log(checked);
+
+    //console.log('popule el learn set');
+    learnSets = PopulateLearnSet(checked);
+    currentSet = learnSets[0];
+
+    StartLearning();
+}
+
+function PopulateLearnSet(arr){
+    let learnArray = [];
+    arr.forEach(element => {
+        let kana = element.getAttribute('for');
+        learnArray.push(allkana[kana]);
+    });
+
+    //console.log(learnArray);
+    return learnArray;
+}
 
 // ---------------------- FUNCTIONS ----------------------  //
 function CreateSimple(component, parent){
@@ -629,8 +1006,6 @@ function CreateLabelInput(parent, id, text){
 //construye pagina de practica basada en seleccion
 function CheckSelected(){
     //get all labels
-    // let checkboxes = document.querySelector('.checkboxes');
-    // console.log(checkboxes);
     let buttons = document.querySelectorAll("div.checkboxes > label");
 
     //check if first one is check
@@ -659,14 +1034,6 @@ function CheckSelected(){
 
     //construir con lo seleccionado
     BuildPracticePage(checked);
-
-    // console.log(checked[0].getAttribute('for'));
-    // console.log(checked);
-    // console.log("building");
-}
-
-function BuildPracticePage(){
-    //esta construye todas las tarjetas
 }
 
 //construye la pagina de practica, basado en los kanas seleccionados
@@ -698,7 +1065,7 @@ function BuildPracticePage(selected){
         });
     });
 
-    console.log(kanas);
+    //console.log(kanas);
 
     //randomizar los kana
     let randomkanas = shuffleArray(kanas);
@@ -821,4 +1188,63 @@ function GetAllLabels(kanaset){
     });
 
     return labels;
+}
+
+function getObjKey(obj, value) {
+    return Object.keys(obj).find(key => obj[key] === value);
+}
+
+function GetRandomKana(){
+    const keys = Object.keys(allkana);
+
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function GetRandomKanaFromBaseThatsNot(base, nots){
+    
+    let arr = allkana[base];
+
+    let random;
+
+    do {
+       random = arr[Math.floor(Math.random() * arr.length)];
+    } while (IsEqual(nots, random));
+    
+    return random;
+
+    // arr = shuffleArray(arr);
+    // return arr[0];
+}
+
+function GetRandomThatIsNot(array, nots){
+    // let keys = Object.keys(object);
+    array = shuffleArray(array);
+    let random;
+
+    do {
+       random = array[Math.floor(Math.random() * array.length)];
+    } while (IsEqual(nots, random));
+    
+    return random;
+}
+
+function IsEqual(obj, prompt){
+    let exit = false;
+
+    obj.forEach(key =>{
+        thekey = key;
+        if(key === prompt){
+            exit = true;
+        }
+    });
+
+    return exit;
+}
+
+function AppendQuizButtons(arr, parent){
+    arr = shuffleArray(arr);
+        
+    arr.forEach(element => {
+        parent.appendChild(element);
+    });
 }

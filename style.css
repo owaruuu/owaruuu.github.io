@@ -20,8 +20,8 @@ body{
     /* overflow-y: auto; */
     /* max-width: 60rem; */
     /* margin: 0 auto 2rem; */
-    margin-left: clamp(1rem,5rem,10rem);
-    margin-right: clamp(1rem,5rem,10rem);
+    margin-left: clamp(1rem,3rem,10rem);
+    margin-right: clamp(1rem,3rem,10rem);
 }
 
 #header{
@@ -190,6 +190,8 @@ button:active:enabled .uibtn-top {
 
 .question-span{
     font-size: clamp(3rem,5rem,9rem);
+    font-family: 'Noto Serif JP', serif;
+    color: #38032f;
 }
 
 .form {
@@ -248,7 +250,7 @@ input[type=text] {
     font-size: 1.5rem;
     transition: 0.2s ease;
     margin: var(--margin) var(--marginsides) var(--margin) var(--marginsides);
-    font-family: 'BIZ UDPMincho', serif;
+    font-family: 'Noto Serif JP', serif;
 }
 
 label{
@@ -279,7 +281,7 @@ label{
 .learnkana {    
     font-size: clamp(5rem, 6rem + 3vw, 10rem);
     color: aliceblue;
-    font-family: 'BIZ UDPMincho', serif;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .learnromaji {   
@@ -418,7 +420,7 @@ label{
     opacity: 0.2;
     transition: opacity 225ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     margin: auto;
-    font-family: 'BIZ UDPMincho', serif;
+    font-family: 'Noto Serif JP', serif;
 }
 
 @media only screen and (min-width: 25rem){

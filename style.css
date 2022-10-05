@@ -411,6 +411,7 @@ label{
     /* padding: 53px; */
     font-size: clamp(5rem, 1rem + 15vw,12rem);
     color: #3d2645;   
+    padding: 10vh;
 }
 
 .quizprompttext{

@@ -390,7 +390,9 @@ function CreateSetupButtons(parentDiv){
     firstDiv.appendChild(maincheckboxes);
 
     Object.keys(mainkanasets).forEach(key => {
-        CreateLabelInput(maincheckboxes, key, mainkanasets[key]);       
+        let array = mainkanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(maincheckboxes, key, text);       
         //console.log(key);
         //console.log(kanaSets[key]);
     });
@@ -405,7 +407,9 @@ function CreateSetupButtons(parentDiv){
     secondDiv.appendChild(dakutencheckboxes);
 
     Object.keys(dakutenkanasets).forEach(key => {
-        CreateLabelInput(dakutencheckboxes, key, dakutenkanasets[key]);
+        let array = dakutenkanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(dakutencheckboxes, key, text);
         //console.log(key);
         //console.log(kanaSets[key]);
     });
@@ -421,7 +425,9 @@ function CreateSetupButtons(parentDiv){
 
 
     Object.keys(combkanasets).forEach(key => {
-        CreateLabelInput(combcheckboxes, key, combkanasets[key]);
+        let array = combkanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(combcheckboxes, key, text);
         //console.log(key);
         //console.log(kanaSets[key]);
     });
@@ -1252,4 +1258,8 @@ function AppendQuizButtons(arr, parent){
     arr.forEach(element => {
         parent.appendChild(element);
     });
+}
+
+function JapaneseComaSeparatedArray(array){
+    return array.join('、');
 }

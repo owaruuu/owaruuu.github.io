@@ -15,21 +15,57 @@ let instrucciones = {
     kanaquiz : 'Selecciona de las opciones abajo el romaji correcto, puedes repetir el Quiz las veces que quieras antes de continuar.',
 };
 
-function FindBaseGroup(kana){
+function FindAllBaseGroup(kana){
     let basekey;
 
-    if(mainkanasets.hasOwnProperty(kana)){
+    if(mainkanasets.hasOwnProperty(kana) || mainkatakanasets.hasOwnProperty(kana)){
         basekey = 'all-base';
         return basekey;
     }
 
-    if(dakutenkanasets.hasOwnProperty(kana)){
+    if(dakutenkanasets.hasOwnProperty(kana) || dakutenkatakanasets.hasOwnProperty(kana)){
         basekey = 'all-dakuten';
         return basekey;
     }
 
-    if(combkanasets.hasOwnProperty(kana)){
+    if(combkanasets.hasOwnProperty(kana) || combkatakanasets.hasOwnProperty(kana)){
         basekey = 'all-comb';
+        return basekey;
+    }
+    
+    return 'null';
+};
+
+function FindBaseGroup(kana){
+    let basekey;
+
+    if(mainkanasets.hasOwnProperty(kana)){
+        basekey = 'all-hiragana-base';
+        return basekey;
+    }
+
+    if(dakutenkanasets.hasOwnProperty(kana)){
+        basekey = 'all-hiraga-dakuten';
+        return basekey;
+    }
+
+    if(combkanasets.hasOwnProperty(kana)){
+        basekey = 'all-hiraga-comb';
+        return basekey;
+    }
+
+    if(mainkatakanasets.hasOwnProperty(kana)){
+        basekey = 'all-katakana-base';
+        return basekey;
+    }
+
+    if(dakutenkatakanasets.hasOwnProperty(kana)){
+        basekey = 'all-katakana-dakuten';
+        return basekey;
+    }
+
+    if(combkatakanasets.hasOwnProperty(kana)){
+        basekey = 'all-katakana-comb';
         return basekey;
     }
     
@@ -39,13 +75,36 @@ function FindBaseGroup(kana){
 function BaseToObject(base){
     switch (base) {
         case 'all-base':
-            return mainkanasets;
+            return allmainbase;
         case 'all-dakuten':
-            return dakutenkanasets;
+            return alldakuten;
         case 'all-comb':
+            return allcomb;
+        case 'all-hiragana-base':
+            return mainkanasets;
+        case 'all-hiragana-dakuten':
+            return dakutenkanasets;
+        case 'all-hiragana-comb':
             return combkanasets;
+        case 'all-katakana-base':
+            return mainkatakanasets;
+        case 'all-katakana-dakuten':
+            return dakutenkatakanasets;
+        case 'all-katakana-comb':
+            return combkatakanasets;
     }
 };
+
+function BaseToGroupLabel(base){
+    switch (base) {
+        case 'all-base':
+            return fors = ['all-hiragana-base', 'all-katakana-base'];
+        case 'all-dakuten':
+            return fors = ['all-hiragana-dakuten', 'all-katakana-dakuten']
+        case 'all-comb':
+            return fors = ['all-hiragana-comb', 'all-katakana-comb'];
+    }
+}
 
 const mainkanasets = {
     あ : ['あ','い','う','え','お'],
@@ -82,7 +141,64 @@ const combkanasets = {
     りゃ : ['りゃ','りゅ','りょ'],   
 };
 
-const allkana = { ...mainkanasets, ...dakutenkanasets, ...combkanasets}
+const mainkatakanasets = {
+    ア : ['ア','イ','ウ','エ','オ'],
+    カ : ['カ','キ','ク','ケ','コ'],
+    サ : ['サ','シ','ス','セ','ソ'],
+    タ : ['タ','チ','ツ','テ','ト'],
+    ナ : ['ナ','ニ','ヌ','ネ','ノ'],
+    ハ : ['ハ','ヒ','フ','ヘ','ホ'],
+    マ : ['マ','ミ','ム','メ','モ'],
+    ヤ : ['ヤ','ユ','ヨ'],
+    ラ : ['ラ','リ','ル','レ','ロ'],
+    ワ : ['ワ','ヲ','ン'],
+};
+
+const dakutenkatakanasets = {
+    ガ : ['ガ','ギ','グ','ゲ','ゴ'],
+    ザ : ['ザ','ジ','ズ','ゼ','ゾ'],
+    ダ : ['ダ','ヂ','ヅ','デ','ド'],
+    バ : ['バ','ビ','ブ','ベ','ボ'],
+    パ : ['パ','ピ','プ','ペ','ポ'],
+    ギャ : ['ギャ','ギュ','ギョ'],
+    ジャ : ['ジャ','ジュ','ジョ'],
+    ビャ : ['ビャ','ビュ','ビョ'],
+    ピャ : ['ピャ','ピュ','ピョ'],
+};
+
+const combkatakanasets = {   
+    キャ : ['キャ','キュ','キョ'],
+    シャ : ['シャ','シュ','ショ'],
+    チャ : ['チャ','チュ','チョ'],
+    ニャ : ['ニャ','ニュ','ニョ'],
+    ヒャ : ['ヒャ','ヒュ','ヒョ'],
+    ミャ : ['ミャ','ミュ','ミョ'],
+    リャ : ['リャ','リュ','リョ'],   
+};
+
+const allmainbase = {
+    ...mainkanasets,
+    ...mainkatakanasets,
+}
+
+const alldakuten = {
+    ...dakutenkanasets,
+    ...dakutenkatakanasets,
+}
+
+const allcomb = {
+    ...combkanasets,
+    ...combkatakanasets,
+}
+
+const allkana = { 
+    ...mainkanasets,
+    ...dakutenkanasets,
+    ...combkanasets,
+    ...mainkatakanasets,
+    ...dakutenkatakanasets,
+    ...combkatakanasets,
+}
 
 const kanaAnswers = {
     あ : 'a',
@@ -189,6 +305,110 @@ const kanaAnswers = {
     ぴゃ : 'pya',
     ぴゅ : 'pyu',
     ぴょ : 'pyo',
+    ア : 'a',
+    イ : 'i',
+    ウ : 'u',
+    エ : 'e',
+    オ : 'o',
+    カ : 'ka',
+    キ : 'ki',
+    ク : 'ku',
+    ケ : 'ke',
+    コ : 'ko',
+    サ : 'sa',
+    シ : 'shi',
+    ス : 'su',
+    セ : 'se',
+    ソ : 'so',
+    タ : 'ta',
+    チ : 'chi',
+    ツ : 'tsu',
+    テ : 'te',
+    ト : 'to',
+    ナ : 'na',
+    ニ : 'ni',
+    ヌ : 'nu',
+    ネ : 'ne',
+    ノ : 'no',
+    ハ : 'ha',
+    ヒ : 'hi',
+    フ : 'fu',
+    ヘ : 'he',
+    ホ : 'ho',
+    マ : 'ma',
+    ミ : 'mi',
+    ム : 'mu',
+    メ : 'me',
+    モ : 'mo',
+    ヤ : 'ya',
+    ユ : 'yu',
+    ヨ : 'yo',
+    ラ : 'ra',
+    リ : 'ri',
+    ル : 'ru',
+    レ : 're',
+    ロ : 'ro',
+    ワ : 'wa',
+    ヲ : 'wo',
+    ン : 'n',
+    ガ : 'ga',
+    ギ : 'gi',
+    グ : 'gu',
+    ゲ : 'ge',
+    ゴ : 'go',
+    ザ : 'za',
+    ジ : 'ji',
+    ズ : 'zu',
+    ゼ : 'ze',
+    ゾ : 'zo',
+    ダ : 'da',
+    ヂ : 'di',
+    ヅ : 'du',
+    デ : 'de',
+    ド : 'do',
+    バ : 'ba',
+    ビ : 'bi',
+    ブ : 'bu',
+    ベ : 'be',
+    ボ : 'bo',
+    パ : 'pa',
+    ピ : 'pi',
+    プ : 'pu',
+    ペ : 'pe',
+    ポ : 'po',
+    キャ : 'kya',
+    キュ : 'kyu',
+    キョ : 'kyo',
+    シャ : 'sha',
+    シュ : 'shu',
+    ショ : 'sho',
+    チャ : 'cha',
+    チュ : 'chu',
+    チョ : 'cho',
+    ニャ : 'nya',
+    ニュ : 'nyu',
+    ニョ : 'nyo',
+    ヒャ : 'hya',
+    ヒュ : 'hyu',
+    ヒョ : 'hyo',
+    ミャ : 'mya',
+    ミュ : 'myu',
+    ミョ : 'myo',
+    リャ : 'rya',
+    リュ : 'ryu',
+    リョ : 'ryo',
+    ギャ : 'gya',
+    ギュ : 'gyu',
+    ギョ : 'gyo',
+    ジャ : 'ja',
+    ジュ : 'ju',
+    ジョ : 'jo',
+    ビャ : 'bya',
+    ビュ : 'byu',
+    ビョ : 'byo',
+    ピャ : 'pya',
+    ピュ : 'pyu',
+    ピョ : 'pyo',
 };
 
 const kanaWrongs = {
@@ -344,7 +564,7 @@ function Submit(event){
 
     //console.log(event.target[0].value);
     //console.log(event.target.parentElement);
-    console.log(event);
+    //console.log(event);
     //console.log(cardDiv.dataset.answer);  
     //cardDiv.setAttribute('data-some', 20);
     
@@ -377,30 +597,41 @@ function CreateSetupButtons(parentDiv){
     parentDiv.appendChild(firstDiv);
 
     //creo boton all main
-    let allbaseinput = CreateGroupLabelInput(firstDiv, 'all-base', 'Todos Kana base');
-    //document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
-    document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
+    let allbaseinput = CreateAllLabelInput(firstDiv, 'all-base', 'Todos Kana base');
+    // document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
 
-    
-    //allbaseinput.addEventListener('change', () => ToggleGroup(allbaseinput, mainkanasets));
-    //allbaseinput.addEventListener('click', ClickInput);
+    let maingroupbuttons = CreateAndClass('div', firstDiv, classes = ['kanagroupbuttons']);
 
     let maincheckboxes = document.createElement('div');
     maincheckboxes.classList.add('checkboxes');
     firstDiv.appendChild(maincheckboxes);
 
+    let hiraganabase = CreateSimple('div', maincheckboxes);
+
+    //boton all hiragana
+    CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-base', 'Todos hiragana base');
+
     Object.keys(mainkanasets).forEach(key => {
         let array = mainkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
-        CreateLabelInput(maincheckboxes, key, text);       
-        //console.log(key);
-        //console.log(kanaSets[key]);
+        CreateLabelInput(hiraganabase, key, text);       
+    });
+
+    //boton all katakana
+    let katakananabase = CreateSimple('div', maincheckboxes);
+    CreateGroupLabelInput(maingroupbuttons, 'all-katakana-base', 'Todos Katakana base');
+
+    //botones katakana
+    Object.keys(mainkatakanasets).forEach(key => {
+        let array = mainkatakanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(katakananabase, key, text);       
     });
 
     let secondDiv = document.createElement('div');
     parentDiv.appendChild(secondDiv);
 
-    let alldakuteninput = CreateGroupLabelInput(secondDiv , 'all-dakuten', 'Todos Dakuten/Handakuten');
+    let alldakuteninput = CreateAllLabelInput(secondDiv , 'all-hiragana-dakuten', 'Todos Dakuten/Handakuten');
 
     let dakutencheckboxes = document.createElement('div');
     dakutencheckboxes.classList.add('checkboxes');
@@ -410,14 +641,12 @@ function CreateSetupButtons(parentDiv){
         let array = dakutenkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
         CreateLabelInput(dakutencheckboxes, key, text);
-        //console.log(key);
-        //console.log(kanaSets[key]);
     });
 
     let thirdDiv = document.createElement('div');
     parentDiv.appendChild(thirdDiv);
 
-    let allcombinput = CreateGroupLabelInput(thirdDiv , 'all-comb', 'Todos Combinacion');
+    let allcombinput = CreateAllLabelInput(thirdDiv , 'all-hiragana-comb', 'Todos Combinacion');
 
     let combcheckboxes = document.createElement('div');
     combcheckboxes.classList.add('checkboxes');
@@ -428,8 +657,6 @@ function CreateSetupButtons(parentDiv){
         let array = combkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
         CreateLabelInput(combcheckboxes, key, text);
-        //console.log(key);
-        //console.log(kanaSets[key]);
     });
 
 }
@@ -438,21 +665,38 @@ function TurnOffGroupButton(base){
     document.querySelector(`[for='${base}']`).classList.remove('check');
 }
 
-function ClickInput(event){
-    //console.log(event.target.parentElement);
-    //console.log(event.target.parentElement);
+function ClickAllInput(event){
     let newState = ToggleGroupClass(event.target.parentElement, 'check');
 
     //si new state es true, significa que prendi el boton
     //aqui tengo que pasar por todos los botones y ponerles check
-    //como obtengo todos los label correspondiente al main label que mando este evento?
+    let base = event.target.parentElement.getAttribute('for');
+    let otherbuttonsattribute = BaseToGroupLabel(base);
+    console.log(otherbuttonsattribute);
+
+    let object = BaseToObject(base);
+
+    let labels = GetAllLabels(object);
+
+    if(newState){
+        TurnAllOn(labels);
+        TurnBothButtons(otherbuttonsattribute, true);
+    }else{
+        TurnAllOff(labels);
+        TurnBothButtons(otherbuttonsattribute, false);
+    }
+}
+
+function ClickGroupInput(event){
+    let newState = ToggleGroupClass(event.target.parentElement, 'check');
+
+    //si new state es true, significa que prendi el boton
+    //aqui tengo que pasar por todos los botones y ponerles check
     let base = event.target.parentElement.getAttribute('for');
 
     let object = BaseToObject(base);
-    //console.log(object);
 
     let labels = GetAllLabels(object);
-    //console.log(labels);
 
     if(newState){
         TurnAllOn(labels);
@@ -479,6 +723,20 @@ function TurnAllOff(group){
         }
     });
     //si no tiene la clase check, agregar clase check
+}
+
+function TurnBothButtons(buttonsattribute, onoff){
+    if(onoff){
+        buttonsattribute.forEach(attr => {
+           let button = document.querySelector(`[for=${attr}]`);
+           button.classList.add('check');
+        });
+    }else{
+        buttonsattribute.forEach(attr => {
+            let button = document.querySelector(`[for=${attr}]`);
+            button.classList.remove('check');
+        });
+    }  
 }
 
 function StartLearning(){
@@ -783,11 +1041,15 @@ function TakeNextQuizSet(){
 }
 
 function OnExitButtonPress(){
-    setTimeout(ExitQuiz, 250);
+    setTimeout(ReloadPage, 250);
 }
 
 //Sale a la pagina principal
 function ExitQuiz(){
+    location.reload();
+}
+
+function ReloadPage(){
     location.reload();
 }
 
@@ -805,6 +1067,9 @@ function PopulateInstructions(e){
 
 function BuildHomePage(){
     //first load
+    let title = document.getElementById('title');
+    title.addEventListener('click', ReloadPage); 
+
     //popular instrucciones
     let instContent = document.getElementById('instruccionescontent');
     instContent.textContent = instrucciones.home;
@@ -867,7 +1132,7 @@ function BuildLearnSetupPage(){
 
 function CheckLearnSelected(){
     //get all labels
-    let buttons = document.querySelectorAll("div.checkboxes > label");
+    let buttons = document.querySelectorAll("div.checkboxes > div > label");
     //console.log(`esto es lo que tengo en buttons: ${buttons}`);
 
     //hacer un array con todos los 'check'
@@ -950,23 +1215,26 @@ function ToggleClass(element, clase){
     let contains = element.classList.contains(clase);
     if(contains){
         //aqui estoy apagando un boton
-        //document.dispatchEvent(OnTurnOffBaseKana);
-        //element.dispatchEvent(OnTurnOffBaseKana);
         //basado en el kana de este element, por ej: あ obtener el 'all base'
         let attr = element.getAttribute('for');
 
-        let base = FindBaseGroup(attr);
+        let base = FindAllBaseGroup(attr);
         let targetlabel = document.querySelector(`[for='${base}']`);
+        targetlabel.classList.remove(clase);
+        
+        base = FindBaseGroup(attr);
+        targetlabel = document.querySelector(`[for='${base}']`);
+
         targetlabel.classList.remove(clase);
 
         element.classList.remove(clase);
         return false;
     }else{
         //aqui estoy prendiendo un boton
+        //FIX check si los aprete todos y prender el label de all tambien
         element.classList.add(clase);
         return true;
     }
-    //console.log(bool);
 }
 
 function CreateUiButton(parent, text){
@@ -992,7 +1260,22 @@ function CreateGroupLabelInput(parent, id, text){
     let node = document.createTextNode (text);
     label.appendChild(node);
     input.setAttribute('type', 'checkbox');
-    input.addEventListener('click', ClickInput);
+    input.addEventListener('click', ClickGroupInput);
+
+    return input;
+}
+
+function CreateAllLabelInput(parent, id, text){
+    //crea los label en el menu de setup
+    let label = CreateAndClass('label', parent, classes = ['select-box']);
+    //label.setAttribute('id', id);
+    let input = CreateAndId('input', label, id);
+    input.classList.add('setup-input');
+    label.setAttribute('for', id);
+    let node = document.createTextNode (text);
+    label.appendChild(node);
+    input.setAttribute('type', 'checkbox');
+    input.addEventListener('click', ClickAllInput);
 
     return input;
 }
@@ -1017,17 +1300,7 @@ function CreateLabelInput(parent, id, text){
 //construye pagina de practica basada en seleccion
 function CheckSelected(){
     //get all labels
-    let buttons = document.querySelectorAll("div.checkboxes > label");
-
-    //check if first one is check
-    // let all = buttons[0].classList.contains('check');
-    let all = false;
-
-    if(all){
-        //construir todos
-        BuildPracticePage();
-        return;
-    }
+    let buttons = document.querySelectorAll("div.checkboxes > div > label");
 
     //hacer un array con todos los 'check'
     let checked = []; 
@@ -1076,7 +1349,8 @@ function BuildPracticePage(selected){
         });
     });
 
-    //console.log(kanas);
+
+    console.log(kanas);
 
     //randomizar los kana
     let randomkanas = shuffleArray(kanas);
@@ -1093,8 +1367,17 @@ function BuildPracticePage(selected){
     let firstInput = document.querySelector('input');
     firstInput.focus();
 
-    //console.log(kanasBase);
-    //console.log(kanas);
+    CreateAndClass('div', app, classes = ['spacer']);
+    //crear div para botones de again and exit
+    let buttonsDiv = CreateAndClass('div', app, classes = ['practiceagainbuttons']);
+
+    let againButton = CreateAndClass('button', buttonsDiv, classes = ['practiceagainbtn']);
+    againButton.textContent = 'Desde 0';
+    againButton.addEventListener('click', () => BuildPracticePage(selected));
+
+    let changeButton = CreateAndClass('button', buttonsDiv, classes = ['practicechangebtn']);
+    changeButton.textContent = 'Cambiar Kanas';
+    changeButton.addEventListener('click', BuildPracticeSetupPage);
 }
 
 function BuildCards(kanas){
@@ -1170,6 +1453,7 @@ function FocusNext(event){
     }
 
     console.log('no encontre tarjetas libres');
+    document.querySelector('.practiceagainbtn').focus();
 
     // if(index < inputs.length - 1){
     //     inputs[index+1].focus();

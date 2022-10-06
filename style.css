@@ -24,13 +24,6 @@ body{
     margin-right: clamp(1rem,1.5rem,10rem);
 }
 
-#header{
-    display: flex;
-    justify-content: space-between;
-    background-color: #C86FC9;
-    max-height: 100px;
-}
-
 .logo{
     max-width: 10vw;
 }
@@ -40,7 +33,7 @@ body{
 img{
     height: 100%;
     object-fit: contain;
-    max-width: 100%;
+    /* max-width: 100%; */
 }
 
 h1{
@@ -57,27 +50,42 @@ h1{
     margin-bottom: 0px;
 }
 
+#header{
+    display: flex;
+    justify-content: space-between;
+    /* background-color: #C86FC9; */
+    /* background-color: #f3bcde; */
+    max-height: 100px;
+    box-shadow: 0 6px 20px 0 rgba(185, 36, 198, 0.27);
+    margin-bottom: 2vh;
+    background-color: #F79AD3;
+}
+
 #title {
     padding-left: 2rem;
     padding-right: 2rem;
     align-items: center;
     display: inline-flex;
     /* height: 48px; */
-    background-color: #C86FC9;
+    /* background-color: #C86FC9; */
+    /* background-color: #f3bcde; */
     justify-content: center;
     /* letter-spacing: -.8px; */
     /* line-height: 24px; */
     /* min-width: 140px; */
-    color: #fdfbf9;
+    color: #f7c7db;
+    
     font-size: clamp(1rem, 1rem + 2vw ,7rem);
     margin-top: 0px;
     margin-bottom: 0px;
     border: none;
     cursor: pointer;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 900;
 }
 
 #title:hover {
-    color: #ebcbe8;
+    color: #eeb1eb;
 }
 
 .otherbtn{
@@ -87,16 +95,22 @@ h1{
 p#instrucciones{
     text-align: center;
     color: #8E518D;
+    font-size: clamp(1rem, 1.5rem, 2rem);
+    margin: 10px;
+    font-weight: 500;
 }
 
 p#instruccionescontent{
     text-align: center;
     max-width: 400px;
-    margin-top: 0;
+    /* margin-top: 0; */
     font-size: 1.2rem;
     color: #595758;
     margin-left: auto;
-margin-right: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-style: italic;
 }
 
 #app{
@@ -115,7 +129,8 @@ margin-right: auto;
 .uibtn{
     --button_radius: 0.75em;
     --button_color: #F7C7DB;
-    --button_outline_color: #595758;
+    /* --button_outline_color: #595758; */
+    --button_outline_color:#420039;
     font-size: 17px;
     font-weight: bold;
     border: none;
@@ -205,7 +220,8 @@ button:active:enabled .uibtn-top {
 .question {
     font-size: 8rem;
     text-align: center;
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    background-color: #DCCCFF;
     border-bottom: gray dotted;
     flex : 1;
     line-height: 109px;
@@ -220,7 +236,8 @@ button:active:enabled .uibtn-top {
 
 .form {
     text-align: center;
-    background-color: gainsboro;
+    /* background-color: gainsboro; */
+    background-color: #f8e7fd;
     flex: 1;
 }
 
@@ -243,9 +260,30 @@ input[type=text] {
 
 #footer{
     margin-top: 35px;
-    background-color: #FFE4F3;
+    margin-bottom: 35px;
+    background-color: #F79AD3;
+    color: #683257;
     bottom: 0;
+    /* height: 8vh; */
+    padding: 10px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(0.2rem, .5rem + 1vw, 1.1rem);
 }
+
+@media only screen and (min-width: 40rem){
+    #footer{
+        /* background-color: rgb(233, 0, 0); */
+        height: 3vh;
+        flex-direction: row;
+    }   
+}
+
+
 
 @media only screen and (min-width: 69rem){
     .setupDiv{
@@ -391,7 +429,6 @@ label{
     padding: 10px;
     font-size: clamp(1rem, 1rem + 1vw, 1.8rem);
     min-width: 8rem;
-
     font-weight: bold;
     border: none;
     color: #D7C0D0;
@@ -597,6 +634,7 @@ label{
     border: none;
     border-radius: 10px;
     background-color: #DCCCFF;
+    color: #38032f;
     font-size: clamp(2rem, 1rem + 1vw,3rem);
     min-height: 2.5rem;
     margin: 10px;
@@ -614,7 +652,7 @@ label{
     font-size: clamp(2rem, 1rem + 1vw,3rem);
     margin: 10px;
     padding: 1rem;
-    color: #F6F2FF;
+    color: aliceblue;
 }
 
 .practicechangebtn:hover{
@@ -644,7 +682,76 @@ label{
 }
 
 .focus-card{
-    border: 5px #203973 solid;
+    border: 5px #420039 solid;
     transform: scale(1.1);
 }
 
+a{
+    text-decoration: none;
+}
+
+a:link {
+    color: #420039;
+}
+  
+a:visited {
+    color: #2e0219;
+}
+  
+a:hover {
+    color: #683257;
+}
+  
+a:active {
+    color: #0000ff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.sakura-spacer{
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+}
+
+.footersakuradiv{
+    /* height: 80%; */
+}
+
+
+.footerdiv{
+    flex: 1;
+}
+
+.left{
+}
+
+.right{
+    text-align: right;
+}
+
+p > img{
+
+}
+
+button#title{
+    background-color: #F79AD3;
+    --shadowcolor : #420039;
+    -webkit-text-stroke: 7px #420039;
+    paint-order: stroke fill;
+    margin: auto;
+
+    /* text-shadow:
+    3px 3px 0 var(--shadowcolor),
+    -3px -3px 0 var(--shadowcolor),  
+    3px -3px 0 var(--shadowcolor),
+    -3px 3px 0 var(--shadowcolor),
+    3px 3px 0 var(--shadowcolor); */
+}
+
+button:focus-visible{
+    outline: 2px solid #2e0219;
+    border-color: #2e0219;
+}

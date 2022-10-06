@@ -629,3 +629,16 @@ label{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+.all-main:not(.check){
+    background-color: #DCCCFF;
+}
+
+.all-hira:not(.check){
+    background-color: #F6F2FF;
+}
+
+.all-kata:not(.check){
+    background-color: #F6F2FF;
+}
+

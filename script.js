@@ -45,12 +45,12 @@ function FindBaseGroup(kana){
     }
 
     if(dakutenkanasets.hasOwnProperty(kana)){
-        basekey = 'all-hiraga-dakuten';
+        basekey = 'all-hiragana-dakuten';
         return basekey;
     }
 
     if(combkanasets.hasOwnProperty(kana)){
-        basekey = 'all-hiraga-comb';
+        basekey = 'all-hiragana-comb';
         return basekey;
     }
 
@@ -596,11 +596,16 @@ function CreateSetupButtons(parentDiv){
     let firstDiv = document.createElement('div');
     parentDiv.appendChild(firstDiv);
 
-    //creo boton all main
+    //creo boton all base
     let allbaseinput = CreateAllLabelInput(firstDiv, 'all-base', 'Todos Kana base');
+    allbaseinput.parentElement.classList.add('all-main');
     // document.addEventListener('onTurnOffBaseKana', TurnOffGroupButton);
 
-    let maingroupbuttons = CreateAndClass('div', firstDiv, classes = ['kanagroupbuttons']);
+    let maingroupbuttons = CreateAndClass('div', firstDiv, classes = ['kanagroupbuttons']);   
+
+    //boton all base hiragana
+    let btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-base', 'Todos hiragana base');
+    btn.parentElement.classList.add('all-hira');
 
     let maincheckboxes = document.createElement('div');
     maincheckboxes.classList.add('checkboxes');
@@ -608,55 +613,94 @@ function CreateSetupButtons(parentDiv){
 
     let hiraganabase = CreateSimple('div', maincheckboxes);
 
-    //boton all hiragana
-    CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-base', 'Todos hiragana base');
-
     Object.keys(mainkanasets).forEach(key => {
         let array = mainkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
         CreateLabelInput(hiraganabase, key, text);       
     });
 
+    let katakanabase = CreateSimple('div', maincheckboxes);
+
     //boton all katakana
-    let katakananabase = CreateSimple('div', maincheckboxes);
-    CreateGroupLabelInput(maingroupbuttons, 'all-katakana-base', 'Todos Katakana base');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-base', 'Todos Katakana base');
+    btn.parentElement.classList.add('all-kata');
 
     //botones katakana
     Object.keys(mainkatakanasets).forEach(key => {
         let array = mainkatakanasets[key];
         let text = JapaneseComaSeparatedArray(array);
-        CreateLabelInput(katakananabase, key, text);       
+        CreateLabelInput(katakanabase, key, text);       
     });
 
     let secondDiv = document.createElement('div');
     parentDiv.appendChild(secondDiv);
 
-    let alldakuteninput = CreateAllLabelInput(secondDiv , 'all-hiragana-dakuten', 'Todos Dakuten/Handakuten');
+    let alldakuteninput = CreateAllLabelInput(secondDiv , 'all-dakuten', 'Todos Dakuten/Handakuten');
+    alldakuteninput.parentElement.classList.add('all-main');
+
+    maingroupbuttons = CreateAndClass('div', secondDiv, classes = ['kanagroupbuttons']);
+
+    //all dakuten hiragana
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-dakuten', 'Hiragana Dakuten y Handakuten');
+    btn.parentElement.classList.add('all-hira');
 
     let dakutencheckboxes = document.createElement('div');
     dakutencheckboxes.classList.add('checkboxes');
     secondDiv.appendChild(dakutencheckboxes);
 
+    hiraganabase = CreateSimple('div', dakutencheckboxes);
+
     Object.keys(dakutenkanasets).forEach(key => {
         let array = dakutenkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
-        CreateLabelInput(dakutencheckboxes, key, text);
+        CreateLabelInput(hiraganabase, key, text);
     });
 
+    katakanabase =CreateSimple('div', dakutencheckboxes);
+
+    //all dakuten katakana
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-dakuten', 'Katakana Dakuten y Handakuten');
+    btn.parentElement.classList.add('all-kata');
+
+    Object.keys(dakutenkatakanasets).forEach(key => {
+        let array = dakutenkatakanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(katakanabase, key, text);
+    });
+    
     let thirdDiv = document.createElement('div');
     parentDiv.appendChild(thirdDiv);
 
-    let allcombinput = CreateAllLabelInput(thirdDiv , 'all-hiragana-comb', 'Todos Combinacion');
+    let allcombinput = CreateAllLabelInput(thirdDiv , 'all-comb', 'Todos Combinacion');
+    allcombinput.parentElement.classList.add('all-main');
+
+    maingroupbuttons = CreateAndClass('div', thirdDiv, classes = ['kanagroupbuttons']);
+
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-comb', 'Combinaciones Hiragana');
+    btn.parentElement.classList.add('all-hira');
 
     let combcheckboxes = document.createElement('div');
     combcheckboxes.classList.add('checkboxes');
     thirdDiv.appendChild(combcheckboxes);
 
+    hiraganabase = CreateSimple('div', combcheckboxes);
 
     Object.keys(combkanasets).forEach(key => {
         let array = combkanasets[key];
         let text = JapaneseComaSeparatedArray(array);
-        CreateLabelInput(combcheckboxes, key, text);
+        CreateLabelInput(hiraganabase, key, text);
+    });
+
+    katakanabase = CreateSimple('div', combcheckboxes);
+
+    //boton all katakana
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-comb', 'Combinaciones Katakana');
+    btn.parentElement.classList.add('all-kata');
+    //botones katakana
+    Object.keys(combkatakanasets).forEach(key => {
+        let array = combkatakanasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(katakanabase, key, text);       
     });
 
 }

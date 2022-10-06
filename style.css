@@ -195,6 +195,7 @@ button:active:enabled .uibtn-top {
     border-radius: 10px;
     filter: drop-shadow(2px 5px 0px #1b021a38);
     min-width: 9rem;
+    box-sizing: border-box;
 }
 
 .selected {
@@ -493,7 +494,7 @@ label{
     background-color: #683257;   
 }
 
-.incorrectquizanswerbtn:hover:not([disabled]){
+.incorrectquizanswerbtn:hover:not(.incorrectquiz){
     background-color: #683257;   
 }
 
@@ -503,7 +504,7 @@ label{
 }
 
 .incorrectquiz{   
-    background-color: #a71a3d;
+    background-color: #e91f6b;
 }
 
 .correctquizanswerbtn:hover{
@@ -517,16 +518,16 @@ label{
 
 @keyframes shake {
     10%, 90% {
-      transform: translate3d(-1px, 0, 0);
+      transform: translate(-1px, 0);
     }
     20%, 80% {
-      transform: translate3d(2px, 0, 0);
+      transform: translate(2px, 0);
     }
     30%, 50%, 70% {
-      transform: translate3d(-4px, 0, 0);
+      transform: translate(-4px, 0);
     }
     40%, 60% {
-      transform: translate3d(4px, 0, 0);
+      transform: translate(4px, 0);
     }
 }
 
@@ -640,5 +641,10 @@ label{
 
 .all-kata:not(.check){
     background-color: #F6F2FF;
+}
+
+.focus-card{
+    border: 5px #203973 solid;
+    transform: scale(1.1);
 }
 

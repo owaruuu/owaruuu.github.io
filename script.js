@@ -554,6 +554,7 @@ function Submit(event){
     {
         event.target[0].disabled = true;
         form.classList.remove('incorrect');
+        form.parentElement.classList.remove('focus-card');
         form.classList.add('correct');
         //pass focus
         FocusNext(event);
@@ -1021,8 +1022,11 @@ function AnswerQuiz(event){
 
 function FailQuiz(event){
     console.log("wrong");
+    event.preventDefault();   
     event.target.classList.add('incorrectquiz');
-    event.target.disabled = true;
+    //event.target.disabled = true;
+    //event.target.focus();
+    event.target.removeEventListener('click', FailQuiz);
 }
 
 
@@ -1410,6 +1414,7 @@ function BuildPracticePage(selected){
 
     let firstInput = document.querySelector('input');
     firstInput.focus();
+    firstInput.parentElement.parentElement.classList.add('focus-card');
 
     CreateAndClass('div', app, classes = ['spacer']);
     //crear div para botones de again and exit
@@ -1452,6 +1457,7 @@ function BuildKanaCard(kana){
     let input = document.createElement('input'); 
     form.appendChild(input);
     form.addEventListener('submit', Submit);
+    input.addEventListener('focus', checkFocus);
     input.type = 'text';
     input.autocomplete = 'off';
     input.size = 4;
@@ -1461,6 +1467,12 @@ function BuildKanaCard(kana){
     return cardDiv;
 }
 
+function checkFocus(event){   
+    let card = document.querySelector('.focus-card');
+    if(card != null)
+        card.classList.remove('focus-card');
+    event.target.parentElement.parentElement.classList.add('focus-card');
+}
 function shuffleArray(arr){
     let currentIndex = arr.length,  randomIndex;
 
@@ -1486,10 +1498,10 @@ function FocusNext(event){
     let indexToCheck = LoopingIncrement(currentindex, inputs.length);
     
 
-    //check todos los inputs hasta encontrar uno activo
+    //check todos los inputs hasta encontrar uno libre
     for(var i = 0; i < inputs.length; i++){
         if(!inputs[indexToCheck].disabled){
-            inputs[indexToCheck].focus();
+            inputs[indexToCheck].focus();        
             return;
         }else{
             indexToCheck = LoopingIncrement(indexToCheck, inputs.length)
@@ -1498,12 +1510,6 @@ function FocusNext(event){
 
     console.log('no encontre tarjetas libres');
     document.querySelector('.practiceagainbtn').focus();
-
-    // if(index < inputs.length - 1){
-    //     inputs[index+1].focus();
-    // }
-   
-    //console.log(event.target[0]);
 }
 
 function LoopingIncrement(index, length){

@@ -431,7 +431,7 @@ label{
 
 .quizprompt{
     min-width: 9rem;
-    min-height: 15rem;
+    min-height: 16rem;
     margin: auto;
     border-radius: 10px;
     overflow: hidden;
@@ -440,9 +440,8 @@ label{
     /* font-size: clamp(5rem, 5rem + 10vw,12rem); */
     font-size: 10rem;
     color: #3d2645;  
-    /* padding-top: 10vh;  */
-    padding-bottom: 10vh;
-
+    /* padding-top: 10vh; */
+    /* padding-bottom: 10vh; */
 }
 
 .quizprompttext{

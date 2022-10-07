@@ -683,34 +683,11 @@ a:hover {
     text-align: right;
 }
 
-
-    button#title{
-        /* -webkit-text-stroke: 7px #420039; */
-        /* paint-order: stroke fill; */
-        /* -webkit-text-fill-color:transparent; */
-    }
-
-
 button#title{
     background-color: #F79AD3;
     margin: auto;
     --shadowcolor: #420039;
-    /* text-shadow: -2px -2px 0 #000,
-    0   -2px 0 #000,
-    2px -2px 0 #000,
-    2px  0   0 #000,
-    2px  2px 0 #000,
-    0    2px 0 #000,
-   -2px  2px 0 #000,
-   -2px  0   0 #000;; */
-    /* text-shadow:
-    1px 1px 0 var(--shadowcolor),
-    -1px -1px 0 var(--shadowcolor),  
-    1px -1px 0 var(--shadowcolor),
-    -1px 1px 0 var(--shadowcolor),
-    1px 1px 0 var(--shadowcolor); */
 }
-
 
 button:focus-visible{
     outline: 2px solid #2e0219;
@@ -719,16 +696,15 @@ button:focus-visible{
 
 .stroke-single{
     position: relative;
-background: transparent;
-z-index: 0;
+    background: transparent;
+    z-index: 0;
 }
 
 .stroke-single:before{
-  content: attr(title);
-  position: absolute;
-  -webkit-text-stroke: 0.2em #420039; /* Chris Coyier's favorite color! */
-  /* left: 0; */
-  z-index: -1;
+    content: attr(title);
+    position: absolute;
+    -webkit-text-stroke: 0.2em #420039; 
+    z-index: -1;
 }
 
 

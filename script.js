@@ -4,16 +4,266 @@ let learnSets = [
 ];
 
 let currentSet = [];
-// let currentSet =  ['あ','い','う','え','お'];
 
 let instrucciones = {
     home : 'Selecciona la opcion que quieres. Puedes aprender las letras de Hiragana/Katakana desde 0 o practicarlas si ya las sabes.', 
-    aprender : 'Selecciona cuales Kana quieres aprender.',
-    practicar : 'Selecciona cuales Kana quieres practicar.',
+    aprender : `Selecciona cuales Kana quieres aprender y luego presiona 'Aprender' al fondo de la pagina.`,
+    practicar : `Selecciona cuales Kana quieres practicar y luego presiona 'Empezar' al fondo de la pagina.`,
     kanatable : 'Escribe en cada tarjeta la lectura en romaji del Kana.',
     kanalearn : 'Estudia estas tarjetas para luego responder un Quiz.(Intenta escribir un par de veces estas letras si no las conocias.)',
     kanaquiz : 'Selecciona de las opciones abajo el romaji correcto, puedes repetir el Quiz las veces que quieras antes de continuar.',
 };
+
+function KanaToInfo(kana){
+    if(infotext[kana] === ''){
+        return;
+    }
+
+    let symbol = '🛈 ';
+    let info = symbol.concat(infotext[kana]);
+
+    if(info != null){
+        return info;
+    }else{
+        console.log(info);
+    }
+}
+
+const infotext = {
+    あ : 'La letra あ(a) se puede confundir con la letra お(o).',
+    い : 'El orden de las vocales es diferente en Japones.',
+    う : 'El orden de las vocales es diferente en Japones.',
+    え : 'El orden de las vocales es diferente en Japones.',
+    お : 'La letra お(o) se puede confundir con la letra あ(a).',
+    か : '',
+    き : '',
+    く : '',
+    け : '',
+    こ : '',
+    さ : '',
+    し : '',
+    す : '',
+    せ : '',
+    そ : '',
+    た : '',
+    ち : '',
+    つ : '',
+    て : '',
+    と : '',
+    な : '',
+    に : '',
+    ぬ : '',
+    ね : '',
+    の : '',
+    は : '',
+    ひ : '',
+    ふ : '',
+    へ : '',
+    ほ : '',
+    ま : '',
+    み : '',
+    む : '',
+    め : '',
+    も : '',
+    や : '',
+    ゆ : '',
+    よ : '',
+    ら : '',
+    り : '',
+    る : '',
+    れ : '',
+    ろ : '',
+    わ : '',
+    を : '',
+    ん : '',
+    が : '',
+    ぎ : '',
+    ぐ : '',
+    げ : '',
+    ご : '',
+    ざ : '',
+    じ : '',
+    ず : '',
+    ぜ : '',
+    ぞ : '',
+    だ : '',
+    ぢ : '',
+    づ : '',
+    で : '',
+    ど : '',
+    ば : '',
+    び : '',
+    ぶ : '',
+    べ : '',
+    ぼ : '',
+    ぱ : '',
+    ぴ : '',
+    ぷ : '',
+    ぺ : '',
+    ぽ : '',
+    きゃ : '',
+    きゅ : '',
+    きょ : '',
+    しゃ : '',
+    しゅ : '',
+    しょ : '',
+    ちゃ : '',
+    ちゅ : '',
+    ちょ : '',
+    にゃ : '',
+    にゅ : '',
+    にょ : '',
+    ひゃ : '',
+    ひゅ : '',
+    ひょ : '',
+    みゃ : '',
+    みゅ : '',
+    みょ : '',
+    りゃ : '',
+    りゅ : '',
+    りょ : '',
+    ぎゃ : '',
+    ぎゅ : '',
+    ぎょ : '',
+    じゃ : '',
+    じゅ : '',
+    じょ : '',
+    びゃ : '',
+    びゅ : '',
+    びょ : '',
+    ぴゃ : '',
+    ぴゅ : '',
+    ぴょ : '',
+    ア : '',
+    イ : '',
+    ウ : '',
+    エ : '',
+    オ : '',
+    カ : '',
+    キ : '',
+    ク : '',
+    ケ : '',
+    コ : '',
+    サ : '',
+    シ : '',
+    ス : '',
+    セ : '',
+    ソ : '',
+    タ : '',
+    チ : '',
+    ツ : '',
+    テ : '',
+    ト : '',
+    ナ : '',
+    ニ : '',
+    ヌ : '',
+    ネ : '',
+    ノ : '',
+    ハ : '',
+    ヒ : '',
+    フ : '',
+    ヘ : '',
+    ホ : '',
+    マ : '',
+    ミ : '',
+    ム : '',
+    メ : '',
+    モ : '',
+    ヤ : '',
+    ユ : '',
+    ヨ : '',
+    ラ : '',
+    リ : '',
+    ル : '',
+    レ : '',
+    ロ : '',
+    ワ : '',
+    ヲ : '',
+    ン : '',
+    ガ : '',
+    ギ : '',
+    グ : '',
+    ゲ : '',
+    ゴ : '',
+    ザ : '',
+    ジ : '',
+    ズ : '',
+    ゼ : '',
+    ゾ : '',
+    ダ : '',
+    ヂ : '',
+    ヅ : '',
+    デ : '',
+    ド : '',
+    バ : '',
+    ビ : '',
+    ブ : '',
+    ベ : '',
+    ボ : '',
+    パ : '',
+    ピ : '',
+    プ : '',
+    ペ : '',
+    ポ : '',
+    キャ : '',
+    キュ : '',
+    キョ : '',
+    シャ : '',
+    シュ : '',
+    ショ : '',
+    チャ : '',
+    チュ : '',
+    チョ : '',
+    ニャ : '',
+    ニュ : '',
+    ニョ : '',
+    ヒャ : '',
+    ヒュ : '',
+    ヒョ : '',
+    ミャ : '',
+    ミュ : '',
+    ミョ : '',
+    リャ : '',
+    リュ : '',
+    リョ : '',
+    ギャ : '',
+    ギュ : '',
+    ギョ : '',
+    ジャ : '',
+    ジュ : '',
+    ジョ : '',
+    ビャ : '',
+    ビュ : '',
+    ビョ : '',
+    ピャ : '',
+    ピュ : '',
+    ピョ : '',
+    ツァ : '',
+    ファ : '',
+    ヴァ : '',
+    ウィ : '',
+    ティ : '',
+    フィ : '',
+    ディ : '',
+    ヴィ : '',
+    セィ : '',
+    トゥ : '',
+    ドゥ : '',
+    デュ : '',
+    フュ : '',
+    ジュ : '',
+    ウェ : '',
+    シェ : '',
+    チェ : '',
+    ツェ : '',
+    フェ : '',
+    ジェ : '',
+    ヴェ : '',
+    ウォ : '',
+    ツォ : '',
+    フォ : '',
+    ヴォ : '',
+}
 
 function FindAllBaseGroup(kana){
     let basekey;
@@ -30,6 +280,11 @@ function FindAllBaseGroup(kana){
 
     if(combkanasets.hasOwnProperty(kana) || combkatakanasets.hasOwnProperty(kana)){
         basekey = 'all-comb';
+        return basekey;
+    }
+
+    if(extrasets.hasOwnProperty(kana) || combkatakanasets.hasOwnProperty(kana)){
+        basekey = 'all-extra';
         return basekey;
     }
     
@@ -68,6 +323,11 @@ function FindBaseGroup(kana){
         basekey = 'all-katakana-comb';
         return basekey;
     }
+
+    if(extrasets.hasOwnProperty(kana)){
+        basekey = 'all-extra';
+        return basekey;
+    }
     
     return 'null';
 };
@@ -92,6 +352,8 @@ function BaseToObject(base){
             return dakutenkatakanasets;
         case 'all-katakana-comb':
             return combkatakanasets;
+        case 'all-extra':
+            return extrasets;
     }
 };
 
@@ -103,7 +365,17 @@ function BaseToGroupLabel(base){
             return fors = ['all-hiragana-dakuten', 'all-katakana-dakuten']
         case 'all-comb':
             return fors = ['all-hiragana-comb', 'all-katakana-comb'];
+        case 'all-extra':
+            return fors = ['all-extra'];
     }
+}
+
+const extrasets = {
+    ァ : ['ツァ','ファ','ヴァ'],
+    ィ : ['ウィ','ティ','フィ','ディ','ヴィ','セィ'],
+    ゥ : ['トゥ','ドゥ','デュ','フュ','ジュ'],
+    ェ : ['ウェ','シェ','チェ','ツェ','フェ','ジェ','ヴェ'],
+    ォ : ['ウォ','ツォ','フォ','ヴォ'],
 }
 
 const mainkanasets = {
@@ -124,11 +396,7 @@ const dakutenkanasets = {
     ざ : ['ざ','じ','ず','ぜ','ぞ'],
     だ : ['だ','ぢ','づ','で','ど'],
     ば : ['ば','び','ぶ','べ','ぼ'],
-    ぱ : ['ぱ','ぴ','ぷ','ぺ','ぽ'],
-    ぎゃ : ['ぎゃ','ぎゅ','ぎょ'],
-    じゃ : ['じゃ','じゅ','じょ'],
-    びゃ : ['びゃ','びゅ','びょ'],
-    ぴゃ : ['ぴゃ','ぴゅ','ぴょ'],
+    ぱ : ['ぱ','ぴ','ぷ','ぺ','ぽ'],   
 };
 
 const combkanasets = {   
@@ -138,7 +406,11 @@ const combkanasets = {
     にゃ : ['にゃ','にゅ','にょ'],
     ひゃ : ['ひゃ','ひゅ','ひょ'],
     みゃ : ['みゃ','みゅ','みょ'],
-    りゃ : ['りゃ','りゅ','りょ'],   
+    りゃ : ['りゃ','りゅ','りょ'],  
+    ぎゃ : ['ぎゃ','ぎゅ','ぎょ'],
+    じゃ : ['じゃ','じゅ','じょ'],
+    びゃ : ['びゃ','びゅ','びょ'],
+    ぴゃ : ['ぴゃ','ぴゅ','ぴょ'], 
 };
 
 const mainkatakanasets = {
@@ -160,10 +432,7 @@ const dakutenkatakanasets = {
     ダ : ['ダ','ヂ','ヅ','デ','ド'],
     バ : ['バ','ビ','ブ','ベ','ボ'],
     パ : ['パ','ピ','プ','ペ','ポ'],
-    ギャ : ['ギャ','ギュ','ギョ'],
-    ジャ : ['ジャ','ジュ','ジョ'],
-    ビャ : ['ビャ','ビュ','ビョ'],
-    ピャ : ['ピャ','ピュ','ピョ'],
+    
 };
 
 const combkatakanasets = {   
@@ -173,7 +442,11 @@ const combkatakanasets = {
     ニャ : ['ニャ','ニュ','ニョ'],
     ヒャ : ['ヒャ','ヒュ','ヒョ'],
     ミャ : ['ミャ','ミュ','ミョ'],
-    リャ : ['リャ','リュ','リョ'],   
+    リャ : ['リャ','リュ','リョ'],  
+    ギャ : ['ギャ','ギュ','ギョ'],
+    ジャ : ['ジャ','ジュ','ジョ'],
+    ビャ : ['ビャ','ビュ','ビョ'],
+    ピャ : ['ピャ','ピュ','ピョ'], 
 };
 
 const allmainbase = {
@@ -191,6 +464,10 @@ const allcomb = {
     ...combkatakanasets,
 }
 
+const allextra = {
+    ...extrasets,
+}
+
 const allkana = { 
     ...mainkanasets,
     ...dakutenkanasets,
@@ -198,6 +475,7 @@ const allkana = {
     ...mainkatakanasets,
     ...dakutenkatakanasets,
     ...combkatakanasets,
+    ...extrasets,
 }
 
 const kanaAnswers = {
@@ -409,6 +687,31 @@ const kanaAnswers = {
     ピャ : 'pya',
     ピュ : 'pyu',
     ピョ : 'pyo',
+    ツァ : 'tsa',
+    ファ : 'fa',
+    ヴァ : 'va',
+    ウィ : 'wi',
+    ティ : 'ti',
+    フィ : 'fi',
+    ディ : 'di',
+    ヴィ : 'vi',
+    セィ : 'si',
+    トゥ : 'tu',
+    ドゥ : 'du',
+    デュ : 'dyu',
+    フュ : 'fyu',
+    ジュ : 'ju',
+    ウェ : 've',
+    シェ : 'she',
+    チェ : 'che',
+    ツェ : 'tse',
+    フェ : 'fe',
+    ジェ : 'je',
+    ヴェ : 've',
+    ウォ : 'wo',
+    ツォ : 'tso',
+    フォ : 'fo',
+    ヴォ : 'vo',
 };
 
 const kanaWrongs = {
@@ -605,7 +908,7 @@ function CreateSetupButtons(parentDiv){
     let maingroupbuttons = CreateAndClass('div', firstDiv, classes = ['kanagroupbuttons']);   
 
     //boton all base hiragana
-    let btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-base', 'Todos hiragana base');
+    let btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-base', 'Todos hiragana');
     btn.parentElement.classList.add('all-hira');
 
     let maincheckboxes = document.createElement('div');
@@ -623,7 +926,7 @@ function CreateSetupButtons(parentDiv){
     let katakanabase = CreateSimple('div', maincheckboxes);
 
     //boton all katakana
-    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-base', 'Todos Katakana base');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-base', 'Todos Katakana');
     btn.parentElement.classList.add('all-kata');
 
     //botones katakana
@@ -642,7 +945,7 @@ function CreateSetupButtons(parentDiv){
     maingroupbuttons = CreateAndClass('div', secondDiv, classes = ['kanagroupbuttons']);
 
     //all dakuten hiragana
-    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-dakuten', 'Hiragana Dakuten y Handakuten');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-dakuten', 'Todos Hiragana');
     btn.parentElement.classList.add('all-hira');
 
     let dakutencheckboxes = document.createElement('div');
@@ -660,13 +963,30 @@ function CreateSetupButtons(parentDiv){
     katakanabase =CreateSimple('div', dakutencheckboxes);
 
     //all dakuten katakana
-    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-dakuten', 'Katakana Dakuten y Handakuten');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-dakuten', 'Todos Katakana');
     btn.parentElement.classList.add('all-kata');
 
     Object.keys(dakutenkatakanasets).forEach(key => {
         let array = dakutenkatakanasets[key];
         let text = JapaneseComaSeparatedArray(array);
         CreateLabelInput(katakanabase, key, text);
+    });
+
+    //extra katakana
+    let allextrainput = CreateAllLabelInput(secondDiv , 'all-extra', 'Todos Katakana Extra');
+    allextrainput.parentElement.classList.add('all-extra');
+
+    let extracheckboxes = document.createElement('div');
+    extracheckboxes.classList.add('checkboxes');
+    extracheckboxes.classList.add('extra');
+    secondDiv.appendChild(extracheckboxes);
+
+    let extra = CreateSimple('div', extracheckboxes);
+
+    Object.keys(extrasets).forEach(key => {
+        let array = extrasets[key];
+        let text = JapaneseComaSeparatedArray(array);
+        CreateLabelInput(extra, key, text);
     });
     
     let thirdDiv = document.createElement('div');
@@ -677,7 +997,7 @@ function CreateSetupButtons(parentDiv){
 
     maingroupbuttons = CreateAndClass('div', thirdDiv, classes = ['kanagroupbuttons']);
 
-    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-comb', 'Combinaciones Hiragana');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-hiragana-comb', 'Todos Hiragana');
     btn.parentElement.classList.add('all-hira');
 
     let combcheckboxes = document.createElement('div');
@@ -695,7 +1015,7 @@ function CreateSetupButtons(parentDiv){
     katakanabase = CreateSimple('div', combcheckboxes);
 
     //boton all katakana
-    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-comb', 'Combinaciones Katakana');
+    btn = CreateGroupLabelInput(maingroupbuttons, 'all-katakana-comb', 'Todos Katakana');
     btn.parentElement.classList.add('all-kata');
     //botones katakana
     Object.keys(combkatakanasets).forEach(key => {
@@ -809,7 +1129,10 @@ function StartLearning(){
     learnRomaji.textContent = kanaAnswers[currentSet[0]];
     learnRomajiTitle.textContent = 'Romaji';
 
-    CreateAndClass('div',learnDiv , classes = ['spacer'] );
+    let spacer = CreateAndClass('div',learnDiv , classes = ['spacer'] );
+    let info = CreateAndClass('div', spacer, classes = ['info']);
+
+    info.textContent = KanaToInfo(currentSet[0]);
 
     let buttonsdiv = CreateAndClass('div',learnDiv , classes = ['btn-div'] );
 
@@ -839,6 +1162,8 @@ function PreviousButton(){
 
         //buscar el romaji correspondiente al nuevo kana y ponerlo tambien
         let romaji = kanaAnswers[prevkana];
+        let info = document.querySelector('.info');
+        info.textContent = KanaToInfo(prevkana);
 
         let romajielement = document.querySelector('.learnromaji');
         romajielement.textContent = romaji;
@@ -878,6 +1203,8 @@ function NextButton(){
 
         //buscar el romaji correspondiente al nuevo kana y ponerlo tambien
         let romaji = kanaAnswers[nextkana];
+        let info = document.querySelector('.info');
+        info.textContent = KanaToInfo(nextkana);
 
         let romajielement = document.querySelector('.learnromaji');
         romajielement.textContent = romaji;

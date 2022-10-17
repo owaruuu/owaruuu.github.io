@@ -1,7 +1,46 @@
-let learnSets = [
-    ['あ','い','う','え','お'],
-    ['か','き','く','け','こ'],
-];
+let state = {
+    currentPage : "home",
+};
+
+window.history.replaceState(state, null, "");
+
+window.onpopstate = function (event) {
+    if(event.state){
+        state = event.state;
+    }
+
+    Render(state);
+}
+
+function Render(state){
+switch (state.currentPage) {
+    case "home":
+        //render home
+        ReloadPage();
+        break;
+    case "learnSetup":
+        BuildLearnSetupPage();
+        //render learn setup
+        break;
+    case "learn":
+        BuildLearnSetupPage();
+        //render learn
+        break;
+    case "practiceSetup":
+        BuildPracticeSetupPage()
+        //render practice setup
+        break;
+    case "practice":
+        BuildPracticeSetupPage()
+        //render pratice
+        break;
+    default:
+        break;
+}
+}
+
+
+let learnSets = [];
 
 let currentSet = [];
 
@@ -876,6 +915,9 @@ function Submit(event){
 }
 
 function BuildPracticeSetupPage(){
+    state.currentPage = "practiceSetup";
+    window.history.pushState(state, null, "");
+
     let app = document.getElementById('app');
     app.innerHTML = "";
 
@@ -1105,6 +1147,9 @@ function TurnBothButtons(buttonsattribute, onoff){
 }
 
 function StartLearning(){
+    state.currentPage = "learn";
+    window.history.pushState(state, null, "");
+
     let app = document.getElementById('app');
     app.innerHTML = "";
 
@@ -1493,6 +1538,9 @@ function OnPracticeButtonPress(){
 }
 
 function BuildLearnSetupPage(){
+    state.currentPage = "learnSetup";
+    window.history.pushState(state, null, "");
+
     let app = CleanAppPage();
 
     PopulateInstructions(instrucciones.aprender);
@@ -1697,6 +1745,9 @@ function CheckSelected(){
 
 //construye la pagina de practica, basado en los kanas seleccionados
 function BuildPracticePage(selected){
+    state.currentPage = "practice";
+    window.history.pushState(state, null, "");
+
     //clean page
     let app = document.getElementById('app');
     app.innerHTML = "";

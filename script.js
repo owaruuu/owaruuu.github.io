@@ -915,8 +915,7 @@ function Submit(event){
 }
 
 function BuildPracticeSetupPage(){
-    state.currentPage = "practiceSetup";
-    window.history.pushState(state, null, "");
+    
 
     let app = document.getElementById('app');
     app.innerHTML = "";
@@ -1530,16 +1529,21 @@ function OnLearnButtonPress(){
     //currentSet = learnSets[0];
 
     // setTimeout(StartLearning,200);
+    state.currentPage = "learnSetup";
+    window.history.pushState(state, null, "");
+    
     setTimeout(BuildLearnSetupPage, 200);
 }
 
 function OnPracticeButtonPress(){
+    state.currentPage = "practiceSetup";
+    window.history.pushState(state, null, "");
+
     setTimeout(BuildPracticeSetupPage,200);
 }
 
 function BuildLearnSetupPage(){
-    state.currentPage = "learnSetup";
-    window.history.pushState(state, null, "");
+    
 
     let app = CleanAppPage();
 

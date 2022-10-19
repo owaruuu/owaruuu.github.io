@@ -9,6 +9,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #f7d4f2;
 }
 
 #body{
@@ -265,7 +266,8 @@ input[type=text] {
     --margin : .3rem;
     --marginsides : .2rem;
     display: block;
-    border: .3vw solid #595758;
+    border: .3vw solid #7f3f5f;
+    background-color: #fceefa;
     color: #595758;
     padding: 0.5rem 0;
     border-radius: 9px;
@@ -635,11 +637,11 @@ label{
 }
 
 .all-hira:not(.check){
-    background-color: #F6F2FF;
+    background-color: #f2c9ec;
 }
 
 .all-kata:not(.check){
-    background-color: #F6F2FF;
+    background-color: #f2c9ec;
 }
 
 .focus-card{

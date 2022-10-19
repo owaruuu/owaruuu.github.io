@@ -1468,6 +1468,13 @@ function ExitQuiz(){
     location.reload();
 }
 
+function OnTitleClick(){
+    state.currentPage = "home";
+    window.history.pushState(state, null, "");
+
+    ReloadPage();
+}
+
 function ReloadPage(){
     location.reload();
 }
@@ -1487,7 +1494,7 @@ function PopulateInstructions(e){
 function BuildHomePage(){
     //first load
     let title = document.getElementById('title');
-    title.addEventListener('click', ReloadPage); 
+    title.addEventListener('click', OnTitleClick); 
 
     //popular instrucciones
     let instContent = document.getElementById('instruccionescontent');

@@ -74,7 +74,7 @@ h1{
 
 p#instrucciones{
     text-align: center;
-    color: #8E518D;
+    color: #8C3E8B;
     font-size: clamp(1rem, 1.5rem, 2rem);
     margin: 10px;
     font-weight: 500;
@@ -84,7 +84,7 @@ p#instruccionescontent{
     text-align: center;
     max-width: 400px;
     font-size: 1.2rem;
-    color: #595758;
+    color: #7b002e;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
@@ -333,7 +333,7 @@ label{
 }
 
 .romajisection{
-    background-color: #D7C0D0;
+    background-color: #EAC8F7;
     padding: 20px;
 }
 
@@ -637,11 +637,11 @@ label{
 }
 
 .all-hira:not(.check){
-    background-color: #f2c9ec;
+    background-color: #efccff;
 }
 
 .all-kata:not(.check){
-    background-color: #f2c9ec;
+    background-color: #efccff;
 }
 
 .focus-card{
